@@ -1,3 +1,4 @@
+DATA+ARTICLES:
 https://archive.org/details/WikileaksWarDiaryCsv
 
 http://www.theguardian.com/news/datablog+media/wikileaks
@@ -13,7 +14,8 @@ http://spatial.scholarslab.org/cleaning-wikileaks-data-for-use-in-google-mapping
 http://spatial.scholarslab.org/mapping-wikileaks-afghan-war-diary-data-using-google-fusion-tables-part-2-of-2/
 
 AFG MAPS:
-http://code.highcharts.com/mapdata/
+https://ckhickey.cartodb.com/tables/afghanistan_provinces_geometry/public
 http://armymomstrong.com/what-are-regional-commands-rc-in-afghanistan/
 
+Machine Learning:
 https://www.sciencenews.org/article/decision-tree-soldiers-could-reduce-civilian-deaths

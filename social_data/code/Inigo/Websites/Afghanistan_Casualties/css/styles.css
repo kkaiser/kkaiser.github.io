@@ -5,8 +5,22 @@
   shape-rendering: crispEdges;
 }
 
-.bar {
-  fill: steelblue;
+/* hover bar chart */
+div#area1 rect:hover {
+	fill: yellow !important;
+}
+
+/* tooltip for hovering over elements */
+div.tooltip {
+	position: absolute;
+	text-align: center;
+	padding: 2px;
+	margin: 40px;
+	font: 12px sans-serif;
+	background: lightsteelblue;
+	border: 0px;
+	border-radius: 8px;
+	pointer-events: none;
 }
 
 .x.axis path {
@@ -58,21 +72,4 @@ h1 {
 		color: black;
 		border: 3px solid #555555;
 		border-radius: 20px;
-}
-
-.bar{
-    fill:#008CBA;
-}
-
-div.tooltip {
-    position: absolute;
-    text-align: center;
-    width: 60px;
-    height: 28px;
-    padding: 2px;
-    font: 12px sans-serif;
-    background: lightsteelblue;
-    border: 0px;
-    border-radius: 8px;
-    pointer-events: none;
 }
