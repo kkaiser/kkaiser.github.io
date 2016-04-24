@@ -20,7 +20,7 @@
 		position: relative;
 	}
 
-	/* d3 regions tooltip inspired by: 
+	/* d3 regions tooltip inspired by:
 	 * http://www.competa.com/blog/2015/07/how-create-tooltips-in-d3-js/
 	 * http://bl.ocks.org/Caged/6476579
 	*/
@@ -44,6 +44,86 @@
 		height: auto;
 		margin: 5px auto;
 	}
+
+	.axis path,
+	.axis line {
+		fill: none;
+		stroke: #000;
+		shape-rendering: crispEdges;
+	}
+
+	.bar {
+		fill: steelblue;
+	}
+
+	.bar:hover {
+		fill: orange ;
+	}
+
+	.x.axis path {
+		display: none;
+	}
+
+	.bottom{
+		margin-top: 50px;
+		margin-bottom: 40px;
+	}
+
+	.button {
+			padding: 12px 16px;
+			display: inline-block;
+			font-size: 20px;
+			cursor: pointer;
+			text-align: center;
+			text-decoration: none;
+			outline: none;
+			box-shadow: 0 1px #999;
+			background-color: white;
+			color: black;
+			border: 3px solid #555555;
+			border-radius: 20px;
+	}
+
+	.bar{
+			fill:#008CBA;
+	}
+
+	div.tooltip {
+			position: absolute;
+			text-align: center;
+			width: 60px;
+			height: 28px;
+			padding: 2px;
+			font: 12px sans-serif;
+			background: lightsteelblue;
+			border: 0px;
+			border-radius: 8px;
+			pointer-events: none;
+	}
+
+	select {
+		background-color: #F07575; /* fallback color if gradients are not supported */
+		background-position: center right;
+		background-repeat: no-repeat;
+		border: 1px solid #AAA;
+		border-radius: 5px;
+		box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+		height:40px;
+		color: #555;
+		margin-top:50px;
+		margin-bottom:40px;
+		font-size: inherit;
+		margin-left: 15px;
+		overflow: hidden;
+		padding-top: 2px;
+		padding-bottom: 2px;
+		text-overflow: ellipsis;
+	}
+
+	.posbarchart{
+			margin-left: 100px;
+	}
+
 	</style>
 
 	<body>
@@ -54,13 +134,39 @@
 
 		</div>
 
+		<div id="Wordcloud">
+
+			<select id = "opts">
+				<option value="buttonCarjacking" selected="selected">Carjacking</option>
+				<option value="buttonNaturalDisaster">Natural Disaster</option>
+				<option value="buttonDownedAircraft">Downed Aircraft</option>
+				<option value="buttonArrest"> Arrest </option>
+				<option value="buttonGreenGreen"> Green-Green</option>
+				<option value="buttonRefugees">Refugees</option>
+			</select>
+
+		</div>
+
+		<div class="posbarchart">
+			<div id="Barchart">
+				<div class="bottom">
+					<button id="buttonWounded" class="button" style="background-color:#008CBA;" > Wounded </button>
+					<button id="buttonKilled" class="button" > Killed </button>
+				</div>
+			</div>
+		</div>
+
 		<!-- load D3.js for visualization -->
 		<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 		<!-- load leaflet.js for map -->
 		<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
 		<!-- mapbox for nice tiles -->
 		<script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
-		<script>
+		<!-- load jquery -->
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<!-- load wordcloud script -->
+		<script src="js/d3.layout.cloud.js"></script>
+		<script type="text/javascript">
 		/*
 		 * initial source: https://bost.ocks.org/mike/leaflet/
 		 */
@@ -151,7 +257,7 @@
 			var items = collection.features;
 			var legend_data = [];
 			var lookup = {};
-			
+
 			// function to get distinct regions for legend
 			for (var item, i = 0; item = items[i++];) {
 				var name = item.properties.region;
@@ -257,7 +363,391 @@
 				var point = map.latLngToLayerPoint(new L.LatLng(y, x));
 				this.stream.point(point.x, point.y);
 			}
-		});
+
+			/*############ WORDCLOUD ####################*/
+
+			var text_string;
+
+			d3.text("data/Carjacking.csv", function(text) {
+					var data = d3.csv.parseRows(text);
+					text_string = data[0][0];
+
+					drawWordCloud(text_string);
+
+					function drawWordCloud(text_string){
+						var common = "poop,i,me,my,myself,we,us,our,ours,ourselves,you,your,yours,yourself,yourselves,he,him,his,himself,she,her,hers,herself,it,its,itself,they,them,their,theirs,themselves,what,which,who,whom,whose,this,that,these,those,am,is,are,was,were,be,been,being,have,has,had,having,do,does,did,doing,will,would,should,can,could,ought,i'm,you're,he's,she's,it's,we're,they're,i've,you've,we've,they've,i'd,you'd,he'd,she'd,we'd,they'd,i'll,you'll,he'll,she'll,we'll,they'll,isn't,aren't,wasn't,weren't,hasn't,haven't,hadn't,doesn't,don't,didn't,won't,wouldn't,shan't,shouldn't,can't,cannot,couldn't,mustn't,let's,that's,who's,what's,here's,there's,when's,where's,why's,how's,a,an,the,and,but,if,or,because,as,until,while,of,at,by,for,with,about,against,between,into,through,during,before,after,above,below,to,from,up,upon,down,in,out,on,off,over,under,again,further,then,once,here,there,when,where,why,how,all,any,both,each,few,more,most,other,some,such,no,nor,not,only,own,same,so,than,too,very,say,says,said,shall";
+						var word_count = {};
+						var words = text_string.split(" ");
+							if (words.length == 1){
+								word_count[words[0]] = 1;
+							} else {
+								words.forEach(function(word){
+									var word = word.toLowerCase();
+									if (word != "" && common.indexOf(word)==-1 && word.length>1){
+										if (word_count[word]){
+											word_count[word]++;
+										} else {
+											word_count[word] = 1;
+										}
+									}
+								})
+							}
+
+						var svg_location = "#Wordcloud";
+						var width = $(document).width();
+						var height = $(document).height();
+
+						var fill = d3.scale.category20();
+
+						var word_entries = d3.entries(word_count);
+
+						var xScale = d3.scale.linear()
+							 .domain([0, d3.max(word_entries, function(d) {
+									return d.value;
+								})
+							 ])
+							 .range([10,100]);
+
+						d3.layout.cloud().size([width, height])
+							.timeInterval(20)
+							.words(word_entries)
+							.fontSize(function(d) { return xScale(+d.value); })
+							.text(function(d) { return d.key; })
+							.rotate(function() { return ~~(Math.random() * 2) * 90; })
+							.font("Impact")
+							.on("end", draw)
+							.start();
+
+						function draw(words) {
+							d3.select(svg_location).append("svg")
+									.attr("width", width)
+									.attr("height", height)
+								.append("g")
+									.attr("transform", "translate(" + [width >> 1, height >> 1] + ")")
+								.selectAll("text")
+									.data(words)
+								.enter().append("text")
+									.style("font-size", function(d) { return xScale(d.value) + "px"; })
+									.style("font-family", "Impact")
+									.style("fill", function(d, i) { return fill(i); })
+									.attr("text-anchor", "middle")
+									.attr("transform", function(d) {
+										return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+									})
+									.text(function(d) { return d.key; });
+						}
+
+						d3.layout.cloud().stop();
+					}
+
+					d3.selectAll("#opts")
+							.on('change', function() {
+
+								var ID = d3.select(this).property('value');
+
+								if (ID == "buttonCarjacking"){
+									update_wordcloud("data/Carjacking.csv");
+								}
+								else if (ID == "buttonNaturalDisaster"){
+									update_wordcloud("data/Natural_disaster.csv")
+								}
+								else if (ID == "buttonDownedAircraft"){
+									update_wordcloud("data/Downed_aircraft.csv")
+								}
+								else if (ID == "buttonArrest"){
+									update_wordcloud("data/Arrest.csv")
+								}
+								else if (ID == "buttonGreenGreen"){
+									update_wordcloud("data/Green_Green.csv")
+								}
+								else if (ID == "buttonRefugees"){
+									update_wordcloud("data/Refugees.csv")
+								}
+						})
+
+					function update_wordcloud(filename){
+
+						d3.text(filename, function(text) {
+								var data = d3.csv.parseRows(text);
+								text_string = data[0][0];
+								drawWordCloud2(text_string);
+
+
+								function drawWordCloud2(text_string){
+									var common = "poop,i,me,my,myself,we,us,our,ours,ourselves,you,your,yours,yourself,yourselves,he,him,his,himself,she,her,hers,herself,it,its,itself,they,them,their,theirs,themselves,what,which,who,whom,whose,this,that,these,those,am,is,are,was,were,be,been,being,have,has,had,having,do,does,did,doing,will,would,should,can,could,ought,i'm,you're,he's,she's,it's,we're,they're,i've,you've,we've,they've,i'd,you'd,he'd,she'd,we'd,they'd,i'll,you'll,he'll,she'll,we'll,they'll,isn't,aren't,wasn't,weren't,hasn't,haven't,hadn't,doesn't,don't,didn't,won't,wouldn't,shan't,shouldn't,can't,cannot,couldn't,mustn't,let's,that's,who's,what's,here's,there's,when's,where's,why's,how's,a,an,the,and,but,if,or,because,as,until,while,of,at,by,for,with,about,against,between,into,through,during,before,after,above,below,to,from,up,upon,down,in,out,on,off,over,under,again,further,then,once,here,there,when,where,why,how,all,any,both,each,few,more,most,other,some,such,no,nor,not,only,own,same,so,than,too,very,say,says,said,shall";
+									var word_count = {};
+									var words = text_string.split(" ");
+										if (words.length == 1){
+											word_count[words[0]] = 1;
+										} else {
+											words.forEach(function(word){
+												var word = word.toLowerCase();
+												if (word != "" && common.indexOf(word)==-1 && word.length>1){
+													if (word_count[word]){
+														word_count[word]++;
+													} else {
+														word_count[word] = 1;
+													}
+												}
+											})
+										}
+
+									var svg_location = "#Wordcloud";
+									var width = $(document).width();
+									var height = $(document).height();
+
+									var fill = d3.scale.category20();
+
+									var word_entries = d3.entries(word_count);
+
+									var xScale = d3.scale.linear()
+										 .domain([0, d3.max(word_entries, function(d) {
+												return d.value;
+											})
+										 ])
+										 .range([10,100]);
+
+									d3.layout.cloud().size([width, height/2])
+										.timeInterval(20)
+										.words(word_entries)
+										.fontSize(function(d) { return xScale(+d.value); })
+										.text(function(d) { return d.key; })
+										.rotate(function() { return ~~(Math.random() * 2) * 90; })
+										.font("Impact")
+										.on("end", draw)
+										.start();
+
+									function draw(words) {
+										d3.select(svg_location)
+												.attr("width", width*100)
+												.attr("height", height)
+												.attr("transform", "translate(" + [width >> 1, height >> 1] + ")")
+											.selectAll("text")
+												.data(words)
+												.transition()
+												.duration(1500)
+												.ease("elastic")
+												.style("font-size", function(d) { return xScale(d.value) + "px"; })
+												.style("font-family", "Impact")
+												.style("fill", function(d, i) { return fill(i); })
+												.attr("text-anchor", "middle")
+												.attr("transform", function(d) {
+													return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+												})
+												.text(function(d) { return d.key; });
+									}
+
+									d3.layout.cloud().stop();
+								}
+
+							});
+					}
+				});
+
+				/*################## BARCHART #########################*/
+
+				//global variables
+				var margin = {top: 20, right: 20, bottom: 30, left: 40},
+					width = 960 - margin.left - margin.right,
+					height = 500 - margin.top - margin.bottom;
+
+				var x0 = d3.scale.ordinal()
+						.rangeRoundBands([0, width], .1);
+
+				var x1 = d3.scale.ordinal();
+
+				var y = d3.scale.linear()
+						.range([height, 0]);
+
+				var color = d3.scale.ordinal()
+					.range(["#4169E1", "#ff8c00", "#DC143C", "#2E8B57"]);
+
+				var xAxis = d3.svg.axis()
+					.scale(x0)
+					.orient("bottom");
+
+				var yAxis = d3.svg.axis()
+					.scale(y)
+					.orient("left")
+					.tickFormat(d3.format(".2s"));
+
+				// add the tooltip area to the webpage
+				var tooltip = d3.select("#Barchart").append("div")
+					.attr("class", "tooltip")
+					.style("opacity", 0);
+
+				var svg2 = d3.select("#Barchart").append("svg")
+					.attr("width", width + margin.left + margin.right)
+					.attr("height", height + margin.top + margin.bottom)
+					.append("g")
+					.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+				// read wounded data from file
+				d3.csv("data/Wounded", function(error, data) {
+
+							if (error) throw error;
+
+							var forceNames = d3.keys(data[0]).filter(function(key) { return key !== "Year"; });
+							data.forEach(function(d) {
+								d.forces = forceNames.map(function(name) { return {name: name, value: +d[name]}; });
+							});
+
+						 x0.domain(data.map(function(d) { return d.Year; }));
+						 x1.domain(forceNames).rangeRoundBands([0, x0.rangeBand()]);
+						 y.domain([0, d3.max(data, function(d) { return d3.max(d.forces, function(d) { return d.value; }); })]);
+
+						 svg2.append("g")
+								 .attr("class", "x axis")
+								 .attr("transform", "translate(0," + height + ")")
+								 .call(xAxis);
+
+						 svg2.append("g")
+								 .attr("class", "y axis")
+								 .call(yAxis)
+							 .append("text")
+								 .attr("transform", "rotate(-90)")
+								 .attr("y", 6)
+								 .attr("dy", ".71em")
+								 .style("text-anchor", "end")
+								 .text("Number of people");
+
+						 var year = svg2.selectAll(".year")
+								 .data(data)
+							 .enter().append("g")
+								 .attr("class", "year")
+								 .attr("transform", function(d) { return "translate(" + x0(d.Year) + ",0)"; });
+
+						 year.selectAll(".bar")
+								 .data(function(d) { return d.forces; })
+								 .enter()
+								 .append("rect")
+								 .attr("class", "bar")
+									 .attr("width", x1.rangeBand())
+									 .attr("x", function(d) { return x1(d.name); })
+									 .attr("y", function(d) { return y(d.value); })
+									 .attr("height", function(d) { return height - y(d.value); })
+									 .style("fill", function(d) { return color(d.name); });
+
+
+						 d3.selectAll("rect")
+							 .on("mouseover", function(d) {
+									 tooltip.transition()
+											 .duration(200)
+											 .style("opacity", .9);
+									tooltip.html("<b>" + d.value + "</b>")
+											 .style("left", (d3.event.pageX) + "px")
+											 .style("top", (d3.event.pageY - 28) + "px");
+							 })
+							.on("mouseout", function(d) {
+									tooltip.transition()
+											 .duration(500)
+													.style("opacity", 0);
+							});
+
+						 var legend = svg2.selectAll(".legend")
+								 .data(forceNames.slice().reverse())
+							 .enter().append("g")
+								 .attr("class", "legend")
+								 .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+						 legend.append("rect")
+								 .attr("x", width - 760)
+								 .attr("width", 18)
+								 .attr("height", 18)
+								 .style("fill", color);
+
+						 legend.append("text")
+								 .attr("x", width - 770)
+								 .attr("y", 9)
+								 .attr("dy", ".35em")
+								 .style("text-anchor", "end")
+								 .text(function(d) { return d; })
+								 .style("fill", color);
+
+							//On click, update with new data
+							d3.selectAll("#buttonWounded, #buttonKilled")
+									.on("click", function() {
+										//See which button was clicked
+										var ID = d3.select(this).attr("id");
+										//Decide which dataset to load
+										if (ID == "buttonWounded") {
+												color = "#008CBA";
+												x = document.getElementById("buttonKilled");
+												x.style.backgroundColor = "white";
+												x.style.color = "black";
+												this.style.backgroundColor = color;
+												update_hist("data/Wounded", color);
+										 }
+										 else if (ID == "buttonKilled"){
+												color = "#2E8B57"
+												x = document.getElementById("buttonWounded");
+												x.style.backgroundColor = "white";
+												x.style.color = "black";
+												this.style.backgroundColor = color;
+												update_hist("data/Killed", color);
+											}
+							});
+
+						function update_hist(filename, color){
+
+							d3.csv(filename, function(error, data) {
+
+										if (error) throw error;
+
+										var forceNames = d3.keys(data[0]).filter(function(key) { return key !== "Year"; });
+										data.forEach(function(d) {
+											d.forces = forceNames.map(function(name) { return {name: name, value: +d[name]}; });
+										});
+
+									 x0.domain(data.map(function(d) { return d.Year; }));
+									 x1.domain(forceNames).rangeRoundBands([0, x0.rangeBand()]);
+									 y.domain([0, d3.max(data, function(d) { return d3.max(d.forces, function(d) { return d.value; }); })]);
+
+									 //Update Y axis
+									svg2.select(".y.axis")
+										.transition()
+										.duration(1000)
+										.ease("elastic")
+										.call(yAxis);
+
+									 var year = svg2.selectAll(".year")
+											 .data(data)
+											 .attr("class", "year")
+											 .attr("transform", function(d) { return "translate(" + x0(d.Year) + ",0)"; });
+
+									 year.selectAll(".bar")
+											 .data(function(d) { return d.forces; })
+											 .transition()
+											 .duration(1500)
+											 .ease("elastic")
+											 .attr("class", "bar")
+												 .attr("width", x1.rangeBand())
+												 .attr("x", function(d) { return x1(d.name); })
+												 .attr("y", function(d) { return y(d.value); })
+												 .attr("height", function(d) { return height - y(d.value); })
+												 .style("fill", function(d) { return d.name; });
+
+									 d3.selectAll("rect")
+										 .on("mouseover", function(d) {
+												 tooltip.transition()
+														 .duration(200)
+														 .style("opacity", .9);
+												 tooltip.html(d.value)
+														 .style("left", (d3.event.pageX) + "px")
+														 .style("top", (d3.event.pageY - 28) + "px");
+										 })
+										.on("mouseout", function(d) {
+												tooltip.transition()
+														 .duration(500)
+																.style("opacity", 0);
+										})
+
+								})
+							}
+
+						});
+					});
+
 		</script>
 	</body>
 
