@@ -1,0 +1,78 @@
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.bar {
+  fill: steelblue;
+}
+
+.x.axis path {
+  display: none;
+}
+
+h1 {
+	font-family: sans-serif;
+  color: #000080;
+}
+
+.bottom{
+  margin-top: 50px;
+  margin-left: 100px;
+}
+
+.title{
+  margin-left: 100px;
+}
+
+.area1pos{
+  margin-left:170px;
+}
+
+.area2pos{
+  margin-left:30px;
+}
+
+.area3pos{
+  margin-left:30px;
+}
+/* table */
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg .tg-031e{font-weight:bold;background-color:#efefef}
+.tg .tg-yw4l{vertical-align:top}
+
+.button {
+    padding: 12px 16px;
+		display: inline-block;
+		font-size: 20px;
+		cursor: pointer;
+		text-align: center;
+		text-decoration: none;
+		outline: none;
+		box-shadow: 0 1px #999;
+		background-color: white;
+		color: black;
+		border: 3px solid #555555;
+		border-radius: 20px;
+}
+
+.bar{
+    fill:#008CBA;
+}
+
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 60px;
+    height: 28px;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: lightsteelblue;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+}
