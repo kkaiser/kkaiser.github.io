@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <title>Afghanistan Casualties</title>
+      <script type="text/javascript" src="../d3/d3.js"></script>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
+      <script src="../d3/d3.layout.cloud.js"></script>
+  </head>
+
+  <style>
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
+  /* hover bar chart */
+  div#area1 rect:hover {
+  	fill: yellow !important;
+  }
+
+  /* tooltip for hovering over elements */
+  div.tooltip {
+  	position: absolute;
+  	text-align: center;
+  	padding: 2px;
+  	margin: 40px;
+  	font: 12px sans-serif;
+  	background: lightsteelblue;
+  	border: 0px;
+  	border-radius: 8px;
+  	pointer-events: none;
+  }
+
+  .x.axis path {
+    display: none;
+  }
+
+  h1 {
+  	font-family: sans-serif;
+    color: #000080;
+  }
+
+  .bottom{
+    margin-top: 50px;
+    margin-left: 100px;
+  }
+
+  .button {
+      padding: 12px 16px;
+  		display: inline-block;
+  		font-size: 20px;
+  		cursor: pointer;
+  		text-align: center;
+  		text-decoration: none;
+  		outline: none;
+  		box-shadow: 0 1px #999;
+  		background-color: white;
+  		color: black;
+  		border: 3px solid #555555;
+  		border-radius: 20px;
+  }
+
+  </style>
+  <body>
+      <div class="title">
+        <h1> Wounded and killed counts recorded by the Wikileaks Afghanistan database </h1>
+      </div>
+      <div class="bottom">
+        <button id="buttonWounded" class="button" style="background-color:#008CBA;" > Wounded </button>
+        <button id="buttonKilled" class="button" > Killed </button>
+      </div>
+
+      <div id="area1"></div>
+
+      <script type="text/javascript">
+
+            //global variables
+            var margin = {top: 20, right: 20, bottom: 30, left: 40},
+              width = 960 - margin.left - margin.right,
+              height = 500 - margin.top - margin.bottom;
+            var x0 = d3.scale.ordinal()
+                .rangeRoundBands([0, width], .1);
+            var x1 = d3.scale.ordinal();
+            var y = d3.scale.linear()
+                .range([height, 0]);
+            var color = d3.scale.ordinal()
+              .range(["#4169E1", "#ff8c00", "#DC143C", "#2E8B57"]);
+            var xAxis = d3.svg.axis()
+              .scale(x0)
+              .orient("bottom");
+            var yAxis = d3.svg.axis()
+              .scale(y)
+              .orient("left")
+              .tickFormat(d3.format(".2s"));
+            // add the tooltip area to the webpage
+            var tooltip = d3.select("#area1").append("div")
+              .attr("class", "tooltip")
+              .style("opacity", 0);
+            var svg = d3.select("#area1").append("svg")
+              .attr("width", width + margin.left + margin.right)
+              .attr("height", height + margin.top + margin.bottom)
+              .append("g")
+              .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+            // read wounded data from file
+            d3.csv("data/Wounded", function(error, data) {
+                  if (error) throw error;
+                  var forceNames = d3.keys(data[0]).filter(function(key) { return key !== "Year"; });
+                  data.forEach(function(d) {
+                    d.forces = forceNames.map(function(name) { return {name: name, value: +d[name]}; });
+                  });
+                 x0.domain(data.map(function(d) { return d.Year; }));
+                 x1.domain(forceNames).rangeRoundBands([0, x0.rangeBand()]);
+                 y.domain([0, d3.max(data, function(d) { return d3.max(d.forces, function(d) { return d.value; }); })]);
+                 svg.append("g")
+                     .attr("class", "x axis")
+                     .attr("transform", "translate(0," + height + ")")
+                     .call(xAxis);
+                 svg.append("g")
+                     .attr("class", "y axis")
+                     .call(yAxis)
+                   .append("text")
+                     .attr("transform", "rotate(-90)")
+                     .attr("y", 6)
+                     .attr("dy", ".71em")
+                     .style("text-anchor", "end")
+                     .text("Number of people");
+                 var year = svg.selectAll(".year")
+                     .data(data)
+                   .enter().append("g")
+                     .attr("class", "year")
+                     .attr("transform", function(d) { return "translate(" + x0(d.Year) + ",0)"; });
+                 year.selectAll(".bar")
+                     .data(function(d) { return d.forces; })
+                     .enter()
+                     .append("rect")
+                     .attr("class", "bar")
+                       .attr("width", x1.rangeBand())
+                       .attr("x", function(d) { return x1(d.name); })
+                       .attr("y", function(d) { return y(d.value); })
+                       .attr("height", function(d) { return height - y(d.value); })
+                       .style("fill", function(d) { return color(d.name); });
+                 d3.selectAll("rect")
+    	         	   .on("mouseover", function(d) {
+             			     tooltip.transition()
+             				       .duration(200)
+                    	     .style("opacity", .9);
+            			    tooltip.html("<div><b>" + d.value + "</b></div>")
+             				   .style("left", (d3.event.pageX) + "px")
+                    		   .style("top", (d3.event.pageY - 28) + "px");
+             		   })
+             		  .on("mouseout", function(d) {
+             			    tooltip.transition()
+             				       .duration(500)
+             				          .style("opacity", 0);
+             		  });
+                 var legend = svg.selectAll(".legend")
+                     .data(forceNames.slice().reverse())
+                   .enter().append("g")
+                     .attr("class", "legend")
+                     .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+                 legend.append("rect")
+                     .attr("x", width - 760)
+                     .attr("width", 18)
+                     .attr("height", 18)
+                     .style("fill", color);
+                 legend.append("text")
+                     .attr("x", width - 770)
+                     .attr("y", 9)
+                     .attr("dy", ".35em")
+                     .style("text-anchor", "end")
+                     .text(function(d) { return d; })
+                     .style("fill", color);
+                  //On click, update with new data
+                 	d3.selectAll("#buttonWounded, #buttonKilled")
+                   		.on("click", function() {
+                   			//See which button was clicked
+                   			var ID = d3.select(this).attr("id");
+                        //Decide which dataset to load
+    			              if (ID == "buttonWounded") {
+                            color = "#008CBA";
+    			               		x = document.getElementById("buttonKilled");
+    					         	    x.style.backgroundColor = "white";
+    					         	    x.style.color = "black";
+    					         	    this.style.backgroundColor = color;
+    					          	  update_hist("data/Wounded", color);
+    			               }
+                   			 else if (ID == "buttonKilled"){
+                   					color = "#2E8B57"
+                   					x = document.getElementById("buttonWounded");
+             						    x.style.backgroundColor = "white";
+             						    x.style.color = "black";
+             						    this.style.backgroundColor = color;
+                      			update_hist("data/Killed", color);
+                   				}
+             			});
+                function update_hist(filename, color){
+                  d3.csv(filename, function(error, data) {
+                        if (error) throw error;
+                        var forceNames = d3.keys(data[0]).filter(function(key) { return key !== "Year"; });
+                        data.forEach(function(d) {
+                          d.forces = forceNames.map(function(name) { return {name: name, value: +d[name]}; });
+                        });
+                       x0.domain(data.map(function(d) { return d.Year; }));
+                       x1.domain(forceNames).rangeRoundBands([0, x0.rangeBand()]);
+                       y.domain([0, d3.max(data, function(d) { return d3.max(d.forces, function(d) { return d.value; }); })]);
+                       //Update Y axis
+                      svg.select(".y.axis")
+                        .transition()
+                        .duration(1000)
+                        .ease("elastic")
+                        .call(yAxis);
+                       var year = svg.selectAll(".year")
+                           .data(data)
+                           .attr("class", "year")
+                           .attr("transform", function(d) { return "translate(" + x0(d.Year) + ",0)"; });
+                       year.selectAll(".bar")
+                           .data(function(d) { return d.forces; })
+                           .transition()
+                           .duration(1500)
+                           .ease("elastic")
+                           .attr("class", "bar")
+                             .attr("width", x1.rangeBand())
+                             .attr("x", function(d) { return x1(d.name); })
+                             .attr("y", function(d) { return y(d.value); })
+                             .attr("height", function(d) {
+                               return height - y(d.value);
+                            })
+
+                       d3.selectAll("rect")
+                         .on("mouseover", function(d) {
+                             tooltip.transition()
+                                 .duration(200)
+                                 .style("opacity", .9);
+                             tooltip.html(d.value)
+                                 .style("left", (d3.event.pageX) + "px")
+                                 .style("top", (d3.event.pageY - 28) + "px");
+                         })
+                        .on("mouseout", function(d) {
+                            tooltip.transition()
+                                 .duration(500)
+                                    .style("opacity", 0);
+                        });
+                    });
+                  }
+              });
+      </script>
+  </body>
+</html>
