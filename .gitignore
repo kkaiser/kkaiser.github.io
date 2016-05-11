@@ -60,10 +60,3 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
-
-# data
-*.xls
-social_data/data/*.png
-social_data/data/*.jpg
-social_data/data/*.csv
-
