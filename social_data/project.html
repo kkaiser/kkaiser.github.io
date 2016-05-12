@@ -15,16 +15,21 @@
 	/* Visualization 1 - Barchart */
 	@import url(css/v1.css);
 	
-	/* Visualization 2 - LDA Circle Packing */
-	/* Visualization 3 - Wordclouds */
-	/* Visualization 4 - Map */
-	@import url(css/v4.css);
+	/* Visualization 2 - Wordcloud */
+	@import url(css/tipsy.css);
+	
+	/* Visualization 3 - LDA Circle Packing */
+	@import url(css/v3.css);
+	
+	/* Visualizations - Map */
+	@import url(css/v1_map.css);
 	
 	/* Visualization 5 - Something */
 	</style>
 	<!-- load JS files -->
 	<!-- load jquery <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script> -->
 	<script src="js/jquery.min.js" type="text/javascript"></script>
+	<script src="js/jquery.tipsy.js" type="text/javascript"></script>
 	<!-- load D3.js for visualization <script src="https://d3js.org/d3.v3.min.js" type="text/javascript"></script> -->
 	<script src="js/d3.v3.min.js" type="text/javascript"></script>
 	<!-- load leaflet.js for map <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js" type="text/javascript"></script> -->
@@ -38,7 +43,7 @@
 
 <body>
 	<section class="page-header">
-		<h1 class="project-name">Casualties of the Afghanistan War</h1>
+		<h1 class="project-name">Afghanistan War Insights</h1>
 		<h2 class="project-tagline">Social Data Analysis and Visualization - Project Assignment B</h2>
 		<p>
 			<a href="http://kkaiser.github.io/social_data/project.html" class="btn">Index</a>
@@ -46,7 +51,26 @@
 		</p>
 	</section>
 	<section class="main-content">
-		<h3>Bla</h3>
+		<h3>Introduction</h3>
+		
+		The Afghanistan War diary released by WikiLeaks in 2010 are contained in a 371729121 byte CSV file. It contains 390849 rows and 34 columns. The columns contain dates, locations, reports, category information and counts of the killed and wounded.
+		
+		What is going to be presented covers:
+		<ul>
+			<li>D3 Barchart</li>
+			<li>D3/Leaflet Maps</li>
+			<li>D3 Wordclouds</li>
+			<li>Category Prediction</li>
+			<li>KNN</li>
+			<li>nltk</li>
+		</ul>
+		More in depth analysis can be found in the explainer iPython notebook.
+		
+		There should be download options for data sets (so the user can play around).
+		
+		<h3>Casualties of the War</h3>
+		
+		<p>The most tragic thing about a war? People get killed!</p>
 		
 		<!-- Visualization 1 - Barchart -->
 		<div id="vis1">
@@ -55,24 +79,51 @@
 			<script src="js/v1.js" type="text/javascript"></script>
 		</div>
 
+		<p>
+			One of the worst side effects of war are innocent casualties, civilians that die because they where at the wrong place at the wrong time. 
+			The map you see below covers killed civilians over the course of the war.		
+		</p>
+		
+		<!-- Visualization 1 - Map of killed civilians -->
+		<p>In the top right you can alter the map tiles and disable the GeoJSON overlay of the regions.</p>
+		<div id="map1">
+			<script src="js/v1_map.js" type="text/javascript"></script>
+		</div>
+
+		<h3>War Categories described in Words</h3>
+		<p>Wounded legs, shots fired, blood, medevaced soldier, the Firebase Lilley in <a href="https://en.wikipedia.org/wiki/Shkin,_Paktika">Shkin</a>, according to  U.S. Army Colonel Rodney Davisthe the evilest place in Afghanistan. A lot of powerful words that give an impression of the ugly faces of war are displayed in bellow wordcloud of some particular categories that can be selected over the drop down menu.</p>
+
 		<!-- Visualization 2 - Wordcloud -->
 		<div id="vis2">
-			<select id = "opts">
-				<option value="buttonCarjacking" selected="selected">Carjacking</option>
+			<select id="opts">
+				<option value="buttonGreenGreen" selected="selected">Friendly Fire</option>
+				<option value="buttonCarjacking">Carjacking</option>
 				<option value="buttonNaturalDisaster">Natural Disaster</option>
 				<option value="buttonDownedAircraft">Downed Aircraft</option>
-				<option value="buttonArrest">Arrest</option>
-				<option value="buttonGreenGreen">Green-Green</option>
+				<option value="buttonArrest">Arrest</option>				
 				<option value="buttonRefugees">Refugees</option>
-				<script src="js/v2.js" type="text/javascript"></script>
 			</select>
+			<script src="js/v2.js" type="text/javascript"></script>
+		</div>
+
+		<h3>???</h3>
+		<!-- Visualization 3 - LDA Circle Packing -->
+		<div id="vis3">
+			<script src="js/v3.js" type="text/javascript"></script>
 		</div>
 		
-		<h3>Blablaa</h3>
+		<h3>Making Predictions</h3>
 		<!-- Visualization 4 - Map -->
-		<div id="map">
-			<script src="js/v4.js" type="text/javascript"></script>
-		</div>
+		
+		<h3>Voters watch out!</h3>
+		<p>Elections are one of the most fundamental principles of any democracy. The people in Afghanistan who want to make a difference in their war troubled country try to go vote for a change. In the following visualization security incidents during the <a href="https://en.wikipedia.org/wiki/Afghan_presidential_election,_2009">election in August 2009</a> were taken. The spots of these incidents are have an overlay of a KNN grid that shows most likely war incidents that happen in this area. </p>
+		<!-- Visualization 5 - Map -->
+		
+		
+		 Attacks ahead of the vote, Election day violence
+		 two days before the election that insurgent attacks had averaged 32 per day in the last 10 days, but had spiked up to 48 attacks per day within the last four days
+		Afghan parliamentary election, 2010
+		https://en.wikipedia.org/wiki/Afghan_parliamentary_election,_2010#Controversy
 
 
 		<footer class="site-footer">

@@ -64,7 +64,7 @@ d3.csv("data/csv/v1/wounded.csv", function(error, data) {
 		.call(xAxis);
 	svg.append("g")
 		.attr("class", "y axis")
-		.attr("transform", "translate(2,0)")
+		.attr("transform", "translate(3,0)")
 		.call(yAxis)
 		.append("text")
 		.attr("transform", "rotate(-90)")
@@ -104,7 +104,7 @@ d3.csv("data/csv/v1/wounded.csv", function(error, data) {
 			tooltip.transition()
 				.duration(200)
 				.style("opacity", .9);
-			tooltip.html("<div>" + d.value + " casualties</div>")
+			tooltip.html("<div>" + d.value + " victims</div>")
 				.style("font-weight", "bold")
 				.style("color", "black")
 				.style("left", (d3.event.pageX) + "px")
