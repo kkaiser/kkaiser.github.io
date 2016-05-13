@@ -1,6 +1,6 @@
 "use strict";
 var text_string;
-d3.text("data/csv/v2/Green_Green", function(text) {
+d3.text("data/csv/v2/green-green", function(text) {
 	var data = d3.csv.parseRows(text);
 	text_string = data[0][0];
 	drawWordCloud(text_string);
@@ -96,18 +96,24 @@ d3.text("data/csv/v2/Green_Green", function(text) {
 	d3.selectAll("#opts")
 		.on('change', function() {
 			var ID = d3.select(this).property('value');
-			if (ID == "buttonCarjacking") {
-				update_wordcloud("data/csv/v2/Carjacking");
-			} else if (ID == "buttonNaturalDisaster") {
-				update_wordcloud("data/csv/v2/Natural_Disaster")
-			} else if (ID == "buttonDownedAircraft") {
-				update_wordcloud("data/csv/v2/Downed_Aircraft")
-			} else if (ID == "buttonArrest") {
-				update_wordcloud("data/csv/v2/Arrest")
-			} else if (ID == "buttonGreenGreen") {
-				update_wordcloud("data/csv/v2/Green_Green")
-			} else if (ID == "buttonRefugees") {
-				update_wordcloud("data/csv/v2/Refugees")
+			if (ID == "Carjacking") {
+				update_wordcloud("data/csv/v2/carjacking");
+			} else if (ID == "NaturalDisaster") {
+				update_wordcloud("data/csv/v2/natural_disaster")
+			} else if (ID == "DownedAircraft") {
+				update_wordcloud("data/csv/v2/downed_aircraft")
+			} else if (ID == "Arrest") {
+				update_wordcloud("data/csv/v2/arrest")
+			} else if (ID == "GreenGreen") {
+				update_wordcloud("data/csv/v2/green-green")
+			} else if (ID == "Refugees") {
+				update_wordcloud("data/csv/v2/refugees")
+			} else if (ID == "Murder") {
+				update_wordcloud("data/csv/v2/murder")
+			} else if (ID == "Assassination") {
+				update_wordcloud("data/csv/v2/assassination")
+			} else if (ID == "Demonstration") {
+				update_wordcloud("data/csv/v2/demonstration")
 			}
 		})
 

@@ -12,6 +12,9 @@
 	<link rel="stylesheet" type="text/css" href="../stylesheets/github-light.css" media="screen">
 	<!-- define CSS layout rules -->
 	<style type="text/css">
+	/* leaflet is not needed with mapbox @import url(css/leaflet.css);*/
+	@import url(https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css);
+
 	/* Visualization 1 - Barchart */
 	@import url(css/v1.css);
 	
@@ -23,19 +26,20 @@
 	
 	/* Visualizations - Map */
 	@import url(css/v1_map.css);
+	@import url(css/v4_map.css);
 	
-	/* Visualization 5 - Something */
 	</style>
 	<!-- load JS files -->
 	<!-- load jquery <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script> -->
 	<script src="js/jquery.min.js" type="text/javascript"></script>
+	<!-- tooltip with jquery: http://bl.ocks.org/ilyabo/1373263 -->
 	<script src="js/jquery.tipsy.js" type="text/javascript"></script>
 	<!-- load D3.js for visualization <script src="https://d3js.org/d3.v3.min.js" type="text/javascript"></script> -->
 	<script src="js/d3.v3.min.js" type="text/javascript"></script>
 	<!-- load leaflet.js for map <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js" type="text/javascript"></script> -->
-	<script src="js/leaflet.js" type="text/javascript"></script>
+	<!-- can be disabled when using mapbox <script src="js/leaflet.js" type="text/javascript"></script>-->
 	<!-- mapbox for nice tiles <script src="https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js" type="text/javascript"></script> -->
-	<script src="js/mapbox.js" type="text/javascript"></script>
+	<script src="js/mapbox.js" type="text/javascript"></script> 
 	<!-- load wordcloud -->
 	<script src="js/d3.layout.cloud.js" type="text/javascript"></script>
 	
@@ -91,39 +95,50 @@
 		</div>
 
 		<h3>War Categories described in Words</h3>
-		<p>Wounded legs, shots fired, blood, medevaced soldier, the Firebase Lilley in <a href="https://en.wikipedia.org/wiki/Shkin,_Paktika">Shkin</a>, according to  U.S. Army Colonel Rodney Davisthe the evilest place in Afghanistan. A lot of powerful words that give an impression of the ugly faces of war are displayed in bellow wordcloud of some particular categories that can be selected over the drop down menu.</p>
+		<p>Wounded legs, shots fired, fighting soldier, the firebase "Lilley" in <a href="https://en.wikipedia.org/wiki/Shkin,_Paktika">Shkin</a>, according to  U.S. Army Colonel Rodney Davisthe the evilest place in Afghanistan. The category green on green specifies the <a href="http://www.theguardian.com/world/2010/jul/25/green-on-green-afghan-war-logs">fights between Afghan police and troops</a>. According to the Guardian and the summaries bad blood, corruption, drugs and poor discipline have led to these cases.</p>
+		<p>A lot of powerful words that give an impression of the ugly faces of war are displayed in bellow wordcloud of some particular categories that can be selected over the drop down menu.</p>
 
 		<!-- Visualization 2 - Wordcloud -->
 		<div id="vis2">
 			<select id="opts">
-				<option value="buttonGreenGreen" selected="selected">Friendly Fire</option>
-				<option value="buttonCarjacking">Carjacking</option>
-				<option value="buttonNaturalDisaster">Natural Disaster</option>
-				<option value="buttonDownedAircraft">Downed Aircraft</option>
-				<option value="buttonArrest">Arrest</option>				
-				<option value="buttonRefugees">Refugees</option>
+				<option value="GreenGreen" selected="selected">Green on Green</option>
+				<option value="Carjacking">Carjacking</option>
+				<option value="NaturalDisaster">Natural Disaster</option>
+				<option value="DownedAircraft">Downed Aircraft</option>
+				<option value="Arrest">Arrest</option>				
+				<option value="Refugees">Refugees</option>
+				<option value="Murder">Murder</option>
+				<option value="Assassination">Assassination</option>
+				<option value="Demonstration">Demonstration</option>
 			</select>
 			<script src="js/v2.js" type="text/javascript"></script>
 		</div>
 
-		<h3>???</h3>
 		<!-- Visualization 3 - LDA Circle Packing -->
+		Another type of word visualization sorted after topics ...
 		<div id="vis3">
 			<script src="js/v3.js" type="text/javascript"></script>
 		</div>
-		
-		<h3>Making Predictions</h3>
-		<!-- Visualization 4 - Map -->
-		
+
 		<h3>Voters watch out!</h3>
 		<p>Elections are one of the most fundamental principles of any democracy. The people in Afghanistan who want to make a difference in their war troubled country try to go vote for a change. In the following visualization security incidents during the <a href="https://en.wikipedia.org/wiki/Afghan_presidential_election,_2009">election in August 2009</a> were taken. The spots of these incidents are have an overlay of a KNN grid that shows most likely war incidents that happen in this area. </p>
-		<!-- Visualization 5 - Map -->
+		<!-- Visualization 4 - Map -->
+		<div id="map2">
+			<script src="js/v4_map.js" type="text/javascript"></script>
+		</div>
 		
-		
-		 Attacks ahead of the vote, Election day violence
-		 two days before the election that insurgent attacks had averaged 32 per day in the last 10 days, but had spiked up to 48 attacks per day within the last four days
+		Attacks ahead of the vote, Election day violence
+		two days before the election that insurgent attacks had averaged 32 per day in the last 10 days, but had spiked up to 48 attacks per day within the last four days
 		Afghan parliamentary election, 2010
 		https://en.wikipedia.org/wiki/Afghan_parliamentary_election,_2010#Controversy
+		
+		<h3>Making Predictions</h3>
+		Evaluate the best classifier to chose to predict the right category according to the described event in the summary.
+		Useful for the US-Army to avoid the category "Other" or double meanings like "blue-white" and "blue-on-white" for instance. Usually every report from the military goes into the headquarter for a post analysis. Especially the "significant" activities are analyzed and evaluated by a special group in the command according to the <a href="https://wikileaks.org/afg/">WikiLeaks structure of the reports</a>. Some machine learning algorithms could help them to optimize their work. We decided to do the analysis for all incidents in Kabul (RC-Capital) from 2004 to 2009.
+		
+		<!-- Visualization 5 - Map -->
+		<!-- Visualization 5 - Barchart -->
+
 
 
 		<footer class="site-footer">

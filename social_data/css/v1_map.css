@@ -1,7 +1,5 @@
 /* Visualization 4 - Map */
 
-@import url(leaflet.css);
-
 /* Leaflet map container size */
 div#map1 {
 	width: 860px;

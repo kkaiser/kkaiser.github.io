@@ -1,0 +1,63 @@
+/* Visualization 4 - Map */
+
+/* Leaflet map container size */
+div#map2 {
+	width: 860px;
+	height: 600px;
+}
+/* d3 SVG positioning */
+div#map2 svg {
+	position: relative;
+}
+
+/* leaflet info tooltip */
+div#map2 .info {
+	padding: 6px 8px;
+	font: 14px/16px Arial, Helvetica, sans-serif;
+	background: white;
+	background: rgba(255,255,255,0.8);
+	box-shadow: 0 0 15px rgba(0,0,0,0.2);
+	border-radius: 5px;
+}
+div#map2 .info h4 {
+	margin: 0 0 5px;
+	color: #777;
+}
+
+/* leaflet info legend */
+div#map2 .legend {
+	text-align: left;
+	line-height: 18px;
+	color: #555;
+}
+div#map2 .legend i {
+	width: 18px;
+	height: 18px;
+	float: left;
+	margin-right: 8px;
+	opacity: 0.7;
+}
+
+/* d3 regions tooltip inspired by:
+ * http://www.competa.com/blog/2015/07/how-create-tooltips-in-d3-js/
+ * http://bl.ocks.org/Caged/6476579
+*/
+body .tooltipMap2 {
+	position:absolute;
+	text-align: center;
+	width: 200px;
+	height:auto;
+	background: rgba(0, 0, 0, 0.8);
+	border-radius: 10px;
+	color: #fff;
+	font-size: 15px;
+	padding: 6px 12px;
+	z-index:3;
+}
+body .tooltipMap2 span {
+	display: block;
+	text-align: center;
+	width: 200px;
+	height: auto;
+	margin: 5px auto;
+}

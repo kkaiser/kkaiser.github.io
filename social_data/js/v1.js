@@ -99,7 +99,7 @@ d3.csv("data/csv/v1/wounded.csv", function(error, data) {
 		.style("fill", function(d) {
 			return color(d.name);
 		});
-	d3.selectAll("rect")
+	d3.selectAll("rect.bar")
 		.on("mouseover", function(d) {
 			tooltip.transition()
 				.duration(200)
@@ -210,7 +210,7 @@ d3.csv("data/csv/v1/wounded.csv", function(error, data) {
 				.attr("height", function(d) {
 					return height - y(d.value);
 				})
-			svg.selectAll("rect")
+			svg.selectAll("rect.bar")
 				.on("mouseover", function(d) {
 					tooltip.transition()
 						.duration(200)

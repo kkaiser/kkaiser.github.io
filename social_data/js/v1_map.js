@@ -2,6 +2,7 @@
 
 /*
 * initial source: https://bost.ocks.org/mike/leaflet/
+* this map uses d3 for geoJSON
 */
 
 // leaflet map tiles
@@ -34,11 +35,11 @@ var d3Layer = L.Class.extend({
 	initialize: function() {
 		return;
 	},
-	onAdd: function(map1) {
+	onAdd: function() {
 		d3.select("div#map1 .legend").style("display", "block");
 		d3.select("div#map1 .regions").style("display", "block");
 	},
-	onRemove: function(map1) {
+	onRemove: function() {
 		d3.select("div#map1 .regions").style("display", "none");
 		d3.select("div#map1 .legend").style("display", "none");
 	},
@@ -102,12 +103,13 @@ d3.json("data/json/civ_deaths.json", function(error, collection) {
 			return rScale(parseInt(d.circle.death));
 		});
 			
-	$('div#map1 svg g circle').tipsy({ 
+	$('div#map1 svg g circle').tipsy({
 		gravity: 'w', 
 		html: true, 
 		title: function() {
 		var d = this.__data__;
-			return "Killed Civilians: " + d.circle.death; 
+			return "<b>Killed Civilians: " + d.circle.death + "</b>" + 
+			"<div style='font-size: 10px'><b>Summary: </b>" + d.circle.desc + "</div>"; 
 		}
 	});
 	
@@ -133,7 +135,7 @@ d3.json("data/json/afg.geojson", function(error, collection) {
 	var transform = d3.geo.transform({
 			point: projectPoint
 	}),
-		path = d3.geo.path().projection(transform);
+	path = d3.geo.path().projection(transform);
 
 	var feature = g.selectAll("path")
 		.data(collection.features)
@@ -246,6 +248,7 @@ d3.json("data/json/afg.geojson", function(error, collection) {
 				.style("display", "none")
 		});
 	}
+	
 	// Use Leaflet to implement a D3 geometric transformation.
 	function projectPoint(x, y) {
 		var point = map1.latLngToLayerPoint(new L.LatLng(y, x));
