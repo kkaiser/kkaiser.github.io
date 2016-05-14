@@ -2,13 +2,18 @@
 
 /*
 * initial source: https://bost.ocks.org/mike/leaflet/
-* this map uses d3 for geoJSON
+* this map uses d3 for geoJSON and some overlays
 */
 
 // leaflet map tiles
+var mbAttr = '&copy; <a href="https://www.mapbox.com/map-feedback/">Mapbox</a> &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 L.mapbox.accessToken = 'pk.eyJ1IjoibXJrYWlrZXYiLCJhIjoiY2luZGF4NzA2MDA1Z3d6bHlwbWZ4YWI4YiJ9.5tLR_2fjmu95FYEaEAljYw';
 var street = L.tileLayer('https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=' + L.mapbox.accessToken, {
-	attribution: '&copy; <a href="https://www.mapbox.com/map-feedback/">Mapbox</a> &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	attribution: mbAttr
+});
+
+var grayscale = L.tileLayer('https://api.mapbox.com/v4/mapbox.light/{z}/{x}/{y}.png?access_token=' + L.mapbox.accessToken, {
+	attribution: mbAttr
 });
 
 var terrain = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -18,6 +23,11 @@ var terrain = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 var googlesat = L.tileLayer('https://mt1.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}', {
 	attribution: "Map data &copy;2016 Google"
 });
+
+var positron = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png', {
+	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+});
+
 var map1 = L.map('map1', {
 	center: [34, 66],
 	zoom: 6,
@@ -27,6 +37,8 @@ var map1 = L.map('map1', {
 // control map layers
 var baseLayers = {
 	"Streets (Mapbox)": street,
+	"Grayscale (Mapbox)": grayscale,
+	"Grayscale (CartoDB)": positron,
 	"Terrain (OSM)": terrain,
 	"Satellite (Google)": googlesat
 };
