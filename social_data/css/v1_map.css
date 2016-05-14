@@ -1,4 +1,4 @@
-/* Visualization 4 - Map */
+/* Visualization 1 - Map */
 
 /* Leaflet map container size */
 div#map1 {
@@ -9,7 +9,6 @@ div#map1 {
 div#map1 svg {
 	position: relative;
 }
-
 
 /* d3 regions tooltip inspired by:
  * http://www.competa.com/blog/2015/07/how-create-tooltips-in-d3-js/

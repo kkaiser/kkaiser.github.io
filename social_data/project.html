@@ -24,9 +24,13 @@
 	/* Visualization 3 - LDA Circle Packing */
 	@import url(css/v3.css);
 	
+	/* Visualization 5 - Barchart */
+	@import url(css/v5.css);
+	
 	/* Visualizations - Map */
 	@import url(css/v1_map.css);
 	@import url(css/v4_map.css);
+	@import url(css/v5_map.css);
 	
 	</style>
 	<!-- load JS files -->
@@ -55,26 +59,19 @@
 		</p>
 	</section>
 	<section class="main-content">
+	
 		<h3>Introduction</h3>
-		
-		The Afghanistan War diary released by WikiLeaks in 2010 are contained in a 371729121 byte CSV file. It contains 390849 rows and 34 columns. The columns contain dates, locations, reports, category information and counts of the killed and wounded.
-		
-		What is going to be presented covers:
-		<ul>
-			<li>D3 Barchart</li>
-			<li>D3/Leaflet Maps</li>
-			<li>D3 Wordclouds</li>
-			<li>Category Prediction</li>
-			<li>KNN</li>
-			<li>nltk</li>
-		</ul>
-		More in depth analysis can be found in the explainer iPython notebook.
-		
+		<p>The analyzed dataset contains every recorded incident between 2004 and 2009 during the war in Afghanistan. The secret file has been published in 2010 by the platform <a href="https://wikileaks.org/wiki/Afghan_War_Diary,_2004-2010">WikiLeaks</a>. Please take a look at the following visualizations to get a sense of the tragedies that occurred during this war. In the later sections some scientific methods are used to conclude how ISAF forces and civilians can benefit from the leaked data. A more in <a href="http://nbviewer.jupyter.org/url/kkaiser.github.io/social_data/nb/project_assignmentB.ipynb">depth analysis</a> can be found in a iPython explainer notebook.</p>
+
+		<p><b>
+		The page should say clearly what the dataset is and give the reader some idea of its most important properties.
 		There should be download options for data sets (so the user can play around).
+		</b></p>
 		
-		<h3>Casualties of the War</h3>
-		
+		<h3>Casualties of the War</h3>		
 		<p>The most tragic thing about a war? People get killed!</p>
+		
+		in 2007 US-army strategies ...
 		
 		<!-- Visualization 1 - Barchart -->
 		<div id="vis1">
@@ -99,8 +96,8 @@
 		<p>A lot of powerful words that give an impression of the ugly faces of war are displayed in bellow wordcloud of some particular categories that can be selected over the drop down menu.</p>
 
 		<!-- Visualization 2 - Wordcloud -->
-		<div id="vis2">
-			<select id="opts">
+		<div>
+			<select id="opts_v2">
 				<option value="GreenGreen" selected="selected">Green on Green</option>
 				<option value="Carjacking">Carjacking</option>
 				<option value="NaturalDisaster">Natural Disaster</option>
@@ -111,11 +108,14 @@
 				<option value="Assassination">Assassination</option>
 				<option value="Demonstration">Demonstration</option>
 			</select>
+		</div>
+		<div id="vis2">
 			<script src="js/v2.js" type="text/javascript"></script>
 		</div>
 
+		
 		<!-- Visualization 3 - LDA Circle Packing -->
-		Another type of word visualization sorted after topics ...
+		<p>Another type of word visualization sorted after topics ...</p>
 		<div id="vis3">
 			<script src="js/v3.js" type="text/javascript"></script>
 		</div>
@@ -137,11 +137,28 @@
 		
 		<h3>Making Predictions</h3>
 		Evaluate the best classifier to chose to predict the right category according to the described event in the summary.
-		Useful for the US-Army to avoid the category "Other" or double meanings like "blue-white" and "blue-on-white" for instance. Usually every report from the military goes into the headquarter for a post analysis. Especially the "significant" activities are analyzed and evaluated by a special group in the command according to the <a href="https://wikileaks.org/afg/">WikiLeaks structure of the reports</a>. Some machine learning algorithms could help them to optimize their work. We decided to do the analysis for all incidents in Kabul (RC-Capital) from 2004 to 2009.
+		Useful for the US-Army to avoid the category "Other" or double meanings like "blue-white" and "blue-on-white" for instance. Usually every report from the military goes into the headquarter for a post analysis. Especially the "significant" activities are analyzed and evaluated by a special group in the command according to the <a href="https://wikileaks.org/afg/">WikiLeaks structure of the reports</a>. Some machine learning algorithms could help them to optimize their work. We decided to do the analysis for all incidents in Kabul (RC-Capital) from 2004 to 2009. In this highly populated region the army can benefit the best.
 		
 		<!-- Visualization 5 - Map -->
+		<div id="map3">
+			<script src="js/v5_map.js" type="text/javascript"></script>
+		</div>
 		<!-- Visualization 5 - Barchart -->
+		<div style="margin-bottom: 25px; margin-top: 25px">
+			<select id="opts_v5">
+				<option value="clf" selected="selected">Gaussian NB</option>
+				<option value="tr">Decision Tree</option>
+				<option value="rf">Random Forest</option>
+				<option value="nc">K-Nearest Neighbor</option>
+			</select>
+		</div>
+		<div id="vis5">
+			<script src="js/v5.js" type="text/javascript"></script>
+		</div>
 
+		
+		<h3>Closing technical words</h3>
+		<p>Everything was kept in one HTML document to keep the overview. JS and CSS files are all in one separate file for each visualization. Everything is tested with Chrome 50 it takes a bit to load the page initially but should run smooth after, Firefox 46.0 is working too but has a little bit slower JS engine. Other browsers are untested, our group would appreciate if you keep that in mind while grading.</p>
 
 
 		<footer class="site-footer">

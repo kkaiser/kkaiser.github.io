@@ -3,9 +3,7 @@
   <head>
       <link href="css/styles.css" rel="stylesheet">
       <meta charset="utf-8">
-      <script type="text/javascript" src="../d3/d3.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
+      <script type="text/javascript" src="d3/d3.js"></script>
   </head>
   <body>
       <div class="bottom">
@@ -21,8 +19,8 @@
       <script type="text/javascript">
 
             //global variables
-            var margin = {top: 20, right: 20, bottom: 150, left: 40},
-              width = 960 - margin.left - margin.right,
+            var margin = {top: 20, right: 10, bottom: 150, left: 100},
+              width = 1060 - margin.left - margin.right,
               height = 500 - margin.top - margin.bottom;
 
             var x0 = d3.scale.ordinal()
@@ -78,25 +76,25 @@
 				  .style("text-anchor", "end")
 				  .attr("dx", "-.8em")
 				  .attr("dy", "-.55em")
-				  .attr("transform", "rotate(-90)" );
+				  .attr("transform", "rotate(-45)" );
 
                 svg.append("g")
                     .attr("class", "y axis")
                     .call(yAxis)
                   .append("text")
-                    .attr("transform", "rotate(-90)")
+                    .attr("transform", "translate(90,-25)")
                     .attr("y", 6)
                     .attr("dy", ".71em")
                     .style("text-anchor", "end")
-                    .text("Correct/Incorrect");
+                    .text("percent (%)");
 
-                var year = svg.selectAll(".year")
+                var cat = svg.selectAll(".cat")
                     .data(data)
                     .enter().append("g")
-                    .attr("class", "year")
-                    .attr("transform", function(d) { return "translate(" + x0(d.Year) + ",0)"; });
+                    .attr("class", "cat")
+                    .attr("transform", function(d) { return "translate(" + x0(d.Cat) + ",0)"; });
 
-                year.selectAll(".bar")
+                cat.selectAll(".bar")
                     .data(function(d) { return d.forces; })
                     .enter()
                     .append("rect")
@@ -126,7 +124,7 @@
                      .data(forceNames.slice().reverse())
                      .enter().append("g")
                      .attr("class", "legend")
-                     .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+                     .attr("transform", function(d, i) { return "translate(120," + i * 20 + ")"; });
 
                  legend.append("rect")
                      .attr("x", width - 760)
@@ -228,12 +226,12 @@
                         .ease("elastic")
                         .call(yAxis);
 
-                       var year = svg.selectAll(".year")
+                       var cat = svg.selectAll(".cat")
                            .data(data)
-                           .attr("class", "year")
+                           .attr("class", "cat")
                            .attr("transform", function(d) { return "translate(" + x0(d.Cat) + ",0)"; });
 
-                       year.selectAll(".bar")
+                       cat.selectAll(".bar")
                            .data(function(d) { return d.forces; })
                            .transition()
                            .duration(1500)

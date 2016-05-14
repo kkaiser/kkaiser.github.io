@@ -1,0 +1,25 @@
+/* Visualization 5 - Map */
+
+/* d3 regions tooltip inspired by:
+ * http://www.competa.com/blog/2015/07/how-create-tooltips-in-d3-js/
+ * http://bl.ocks.org/Caged/6476579
+*/
+body .tooltipMap3 {
+	position:absolute;
+	text-align: center;
+	width: 200px;
+	height:auto;
+	background: rgba(0, 0, 0, 0.8);
+	border-radius: 10px;
+	color: #fff;
+	font-size: 15px;
+	padding: 6px 12px;
+	z-index:3;
+}
+body .tooltipMap3 span {
+	display: block;
+	text-align: center;
+	width: 200px;
+	height: auto;
+	margin: 5px auto;
+}

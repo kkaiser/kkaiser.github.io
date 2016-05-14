@@ -1,4 +1,5 @@
 "use strict";
+
 var text_string;
 d3.text("data/csv/v2/green-green", function(text) {
 	var data = d3.csv.parseRows(text);
@@ -93,7 +94,7 @@ d3.text("data/csv/v2/green-green", function(text) {
 		}
 		d3.layout.cloud().stop();
 	}
-	d3.selectAll("#opts")
+	d3.selectAll("#opts_v2")
 		.on('change', function() {
 			var ID = d3.select(this).property('value');
 			if (ID == "Carjacking") {

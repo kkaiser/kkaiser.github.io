@@ -25,11 +25,11 @@ var yAxis = d3.svg.axis()
 	.tickFormat(d3.format(".2s"));
 
 // add the tooltip area to the webpage
-var tooltip = d3.select("#vis1").append("div")
+var tooltip = d3.select("div#vis1").append("div")
 	.attr("class", "tooltip")
 	.style("opacity", 0);
 
-var svg = d3.select("#vis1").append("svg")
+var svg = d3.select("div#vis1").append("svg")
 	.attr("width", width + margin.left + margin.right)
 	.attr("height", height + margin.top + margin.bottom)
 	.append("g")
@@ -145,12 +145,12 @@ d3.csv("data/csv/v1/wounded.csv", function(error, data) {
 			//Decide which dataset to load
 			if (ID == "buttonWounded") {
 				var x = document.getElementById("buttonKilled");
-				x.style.color = "black";
+				x.style.color = null;
 				this.style.color = "#008CBA";
 				update_hist("data/csv/v1/wounded.csv", color);
 			} else if (ID == "buttonKilled") {
 				var x = document.getElementById("buttonWounded");
-				x.style.color = "black";
+				x.style.color = null;
 				this.style.color = "#2E8B57";
 				update_hist("data/csv/v1/killed.csv", color);
 			}
