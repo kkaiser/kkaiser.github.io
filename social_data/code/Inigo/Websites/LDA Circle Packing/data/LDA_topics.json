@@ -1,115 +1,238 @@
 {
- "name": "LDA",
- "children": [
-  {
-   "name": "Topics",
-   "children": [
-    {
-     "name": "Topic 1",
-     "children": [
-      {"name": "national", "size": 0.064492878289263866},
-      {"name": "afgha", "size": 0.062302095299878957},
-      {"name": "police", "size": 0.035039618363793781},
-      {"name": "army", "size": 0.019927287313680816},
-      {"name": "force", "size": 0.017828802459599731},
-      {"name": "security", "size": 0.012929821457629071},
-      {"name": "reported", "size": 0.010769141171117779},
-      {"name": "repor", "size": 0.0094067779236609896},
-      {"name": "base", "size": 0.0091480890758117474},
-      {"name": "forward", "size": 0.0088852642622693524}
-     ]
-    },
-    {
-     "name": "Topic 2",
-     "children": [
-      {"name": "road", "size": 0.023768932390473139},
-      {"name": "flood", "size": 0.016899719723916351},
-      {"name": "river", "size": 0.012606079892060926},
-      {"name": "bridge", "size": 0.011842267079250039},
-      {"name": "valley", "size": 0.01182179074476585},
-      {"name": "village", "size": 0.0083735578914740458},
-      {"name": "damage", "size": 0.0080408958321206495},
-      {"name": "destroyed", "size": 0.0079978447714529454},
-      {"name": "team", "size": 0.0072083270391901169},
-      {"name": "several", "size": 0.0069154158883665438}
-     ]
-    },
-    {
-     "name": "Topic 3",
-     "children": [
-       {"name": "force", "size": 0.030379672976258092},
-       {"name": "district", "size": 0.012068028185023734},
-       {"name": "task", "size": 0.011145802874575421},
-       {"name": "killed", "size": 0.0096143877812106277},
-       {"name": "village", "size": 0.008369839276692782},
-       {"name": "action", "size": 0.0074767505850480359},
-       {"name": "report", "size": 0.0073897441623232809},
-       {"name": "ghazni", "size": 0.0067868895895676351},
-       {"name": "area", "size": 0.0067660040344658208},
-       {"name": "official", "size": 0.006561513827704573}
-     ]
-    },
-    {
-     "name": "Topic 4",
-     "children": [
-       {"name": "truck", "size": 0.027545394663865186},
-       {"name": "driver", "size": 0.022574507454273317},
-       {"name": "reported", "size": 0.012888189879223008},
-       {"name": "vehicle", "size": 0.012466217493321316},
-       {"name": "hijacked", "size": 0.011075351322806536},
-       {"name": "report", "size": 0.010835544890560366},
-       {"name": "insurgent", "size": 0.010195037819375828},
-       {"name": "cargo", "size": 0.0097867833815353713},
-       {"name": "route", "size": 0.0097606430914390432},
-       {"name": "information", "size": 0.0095085543753314801}
-     ]
-   },
-   {
-    "name": "Topic 5",
-    "children": [
-      {"name": "smnt", "size": 0.015436798130803883},
-      {"name": "unhcr", "size": 0.014800715826386951},
-      {"name": "refugee", "size": 0.014177743945582365},
-      {"name": "province", "size": 0.011812332941248014},
-      {"name": "deputy", "size": 0.0099523296452785487},
-      {"name": "coordinator", "size": 0.0098829991174113011},
-      {"name": "jalalabad", "size": 0.0088649141682578432},
-      {"name": "area", "size": 0.0085024311944712373},
-      {"name": "returnees", "size": 0.0076500131541582571},
-      {"name": "embassy", "size": 0.0070959283854963801}
-    ]
-      },
-      {
-       "name": "Topic 6",
-       "children": [
-        {"name": "site", "size": 0.017426446930406791},
-        {"name": "update", "size": 0.016510228325815134},
-        {"name": "force", "size": 0.015628296997380577},
-        {"name": "reported", "size": 0.012752177096339282},
-        {"name": "crash", "size": 0.011925965403677396},
-        {"name": "national", "size": 0.010099260329157825},
-        {"name": "explosive", "size": 0.0093458248625049971},
-        {"name": "vehicle", "size": 0.0092963016052188523},
-        {"name": "report", "size": 0.0081018504490185089},
-        {"name": "task", "size": 0.0073098505597392963}
-       ]
-     },
-     {
-      "name": "Topic 7",
-      "children": [
-        {"name": "national", "size": 0.031863730430607994},
-        {"name": "afghan", "size": 0.031146738558032041},
-        {"name": "force", "size": 0.022277907535196737},
-        {"name": "security", "size": 0.016820946221230575},
-        {"name": "army", "size": 0.015708102294635123},
-        {"name": "killed", "size": 0.013733908090755725},
-        {"name": "reported", "size": 0.010334288112162245},
-        {"name": "soldier", "size": 0.0093376516533605972},
-        {"name": "report", "size": 0.0081988379669450662},
-        {"name": "task", "size": 0.0075649809040788584}
-      ]
-    }
-   ]
-  }
- ]
+	"name": "LDA",
+	"children": [{
+		"name": "Topics",
+		"children": [{
+			"name": "Topic 1",
+			"children": [{
+				"name": "national",
+				"size": 0.064492878289263866
+			}, {
+				"name": "afgha",
+				"size": 0.062302095299878957
+			}, {
+				"name": "police",
+				"size": 0.035039618363793781
+			}, {
+				"name": "army",
+				"size": 0.019927287313680816
+			}, {
+				"name": "force",
+				"size": 0.017828802459599731
+			}, {
+				"name": "security",
+				"size": 0.012929821457629071
+			}, {
+				"name": "reported",
+				"size": 0.010769141171117779
+			}, {
+				"name": "repor",
+				"size": 0.0094067779236609896
+			}, {
+				"name": "base",
+				"size": 0.0091480890758117474
+			}, {
+				"name": "forward",
+				"size": 0.0088852642622693524
+			}]
+		}, {
+			"name": "Topic 2",
+			"children": [{
+				"name": "road",
+				"size": 0.023768932390473139
+			}, {
+				"name": "flood",
+				"size": 0.016899719723916351
+			}, {
+				"name": "river",
+				"size": 0.012606079892060926
+			}, {
+				"name": "bridge",
+				"size": 0.011842267079250039
+			}, {
+				"name": "valley",
+				"size": 0.01182179074476585
+			}, {
+				"name": "village",
+				"size": 0.0083735578914740458
+			}, {
+				"name": "damage",
+				"size": 0.0080408958321206495
+			}, {
+				"name": "destroyed",
+				"size": 0.0079978447714529454
+			}, {
+				"name": "team",
+				"size": 0.0072083270391901169
+			}, {
+				"name": "several",
+				"size": 0.0069154158883665438
+			}]
+		}, {
+			"name": "Topic 3",
+			"children": [{
+				"name": "force",
+				"size": 0.030379672976258092
+			}, {
+				"name": "district",
+				"size": 0.012068028185023734
+			}, {
+				"name": "task",
+				"size": 0.011145802874575421
+			}, {
+				"name": "killed",
+				"size": 0.0096143877812106277
+			}, {
+				"name": "village",
+				"size": 0.008369839276692782
+			}, {
+				"name": "action",
+				"size": 0.0074767505850480359
+			}, {
+				"name": "report",
+				"size": 0.0073897441623232809
+			}, {
+				"name": "ghazni",
+				"size": 0.0067868895895676351
+			}, {
+				"name": "area",
+				"size": 0.0067660040344658208
+			}, {
+				"name": "official",
+				"size": 0.006561513827704573
+			}]
+		}, {
+			"name": "Topic 4",
+			"children": [{
+				"name": "truck",
+				"size": 0.027545394663865186
+			}, {
+				"name": "driver",
+				"size": 0.022574507454273317
+			}, {
+				"name": "reported",
+				"size": 0.012888189879223008
+			}, {
+				"name": "vehicle",
+				"size": 0.012466217493321316
+			}, {
+				"name": "hijacked",
+				"size": 0.011075351322806536
+			}, {
+				"name": "report",
+				"size": 0.010835544890560366
+			}, {
+				"name": "insurgent",
+				"size": 0.010195037819375828
+			}, {
+				"name": "cargo",
+				"size": 0.0097867833815353713
+			}, {
+				"name": "route",
+				"size": 0.0097606430914390432
+			}, {
+				"name": "information",
+				"size": 0.0095085543753314801
+			}]
+		}, {
+			"name": "Topic 5",
+			"children": [{
+				"name": "smnt",
+				"size": 0.015436798130803883
+			}, {
+				"name": "unhcr",
+				"size": 0.014800715826386951
+			}, {
+				"name": "refugee",
+				"size": 0.014177743945582365
+			}, {
+				"name": "province",
+				"size": 0.011812332941248014
+			}, {
+				"name": "deputy",
+				"size": 0.0099523296452785487
+			}, {
+				"name": "coordinator",
+				"size": 0.0098829991174113011
+			}, {
+				"name": "jalalabad",
+				"size": 0.0088649141682578432
+			}, {
+				"name": "area",
+				"size": 0.0085024311944712373
+			}, {
+				"name": "returnees",
+				"size": 0.0076500131541582571
+			}, {
+				"name": "embassy",
+				"size": 0.0070959283854963801
+			}]
+		}, {
+			"name": "Topic 6",
+			"children": [{
+				"name": "site",
+				"size": 0.017426446930406791
+			}, {
+				"name": "update",
+				"size": 0.016510228325815134
+			}, {
+				"name": "force",
+				"size": 0.015628296997380577
+			}, {
+				"name": "reported",
+				"size": 0.012752177096339282
+			}, {
+				"name": "crash",
+				"size": 0.011925965403677396
+			}, {
+				"name": "national",
+				"size": 0.010099260329157825
+			}, {
+				"name": "explosive",
+				"size": 0.0093458248625049971
+			}, {
+				"name": "vehicle",
+				"size": 0.0092963016052188523
+			}, {
+				"name": "report",
+				"size": 0.0081018504490185089
+			}, {
+				"name": "task",
+				"size": 0.0073098505597392963
+			}]
+		}, {
+			"name": "Topic 7",
+			"children": [{
+				"name": "national",
+				"size": 0.031863730430607994
+			}, {
+				"name": "afghan",
+				"size": 0.031146738558032041
+			}, {
+				"name": "force",
+				"size": 0.022277907535196737
+			}, {
+				"name": "security",
+				"size": 0.016820946221230575
+			}, {
+				"name": "army",
+				"size": 0.015708102294635123
+			}, {
+				"name": "killed",
+				"size": 0.013733908090755725
+			}, {
+				"name": "reported",
+				"size": 0.010334288112162245
+			}, {
+				"name": "soldier",
+				"size": 0.0093376516533605972
+			}, {
+				"name": "report",
+				"size": 0.0081988379669450662
+			}, {
+				"name": "task",
+				"size": 0.0075649809040788584
+			}]
+		}]
+	}]
 }
