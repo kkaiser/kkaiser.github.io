@@ -24,7 +24,7 @@ d3.text("data/csv/v2/green-green", function(text) {
 				}
 			})
 		}
-		var svg_location = "#vis2";
+		var svg_location = "div#vis2";
 		var width = 860;
 		var height = 600;
 		var fill = d3.scale.category20();
@@ -142,7 +142,7 @@ d3.text("data/csv/v2/green-green", function(text) {
 						}
 					})
 				}
-				var svg_location = "#vis2";
+				var svg_location = "div#vis2";
 				var width = 860;
 				var height = 600;
 				var fill = d3.scale.category20();

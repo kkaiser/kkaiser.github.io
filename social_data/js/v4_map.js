@@ -257,8 +257,6 @@ var json_afg = (function () {
     return json;
 })();
 
-
-
 // this adds the CSV info and geoJson to the map
 d3.csv("data/csv/v4/election.csv", function(error, data) {
 	if (error) throw error;
@@ -432,7 +430,7 @@ d3.csv("data/csv/v4/election.csv", function(error, data) {
 			}
 		});
 		
-		/* add knn groups */		
+		/* add knn groups */
 		var feature_knn = g_knn.selectAll("circle")
 			.data(dataK5)
 			.enter().append("circle")
@@ -441,7 +439,7 @@ d3.csv("data/csv/v4/election.csv", function(error, data) {
 				return getColorKnn(d.Prediction_k5);
 			})
 			.attr("r", 1.5);
-	
+		
 		// Handle zoom of the map and repositioning of d3 overlay
 		map2.on("viewreset", update_knn);
 		update_knn();
@@ -469,7 +467,7 @@ d3.csv("data/csv/v4/election.csv", function(error, data) {
 				var x20 = document.getElementById("buttonK20");
 				x10.style.color = null;
 				x20.style.color = null;
-				feature_knn = g_knn.selectAll("circle")
+				g_knn.selectAll("circle")
 					.data(dataK5)
 					.transition()
 					.duration(300)
@@ -485,7 +483,7 @@ d3.csv("data/csv/v4/election.csv", function(error, data) {
 				var x20 = document.getElementById("buttonK20");
 				x5.style.color = null;
 				x20.style.color = null;
-				feature_knn = g_knn.selectAll("circle")
+				g_knn.selectAll("circle")
 					.data(dataK10)
 					.transition()
 					.duration(300)
@@ -501,7 +499,7 @@ d3.csv("data/csv/v4/election.csv", function(error, data) {
 				var x10 = document.getElementById("buttonK10");
 				x5.style.color = null;
 				x10.style.color = null;
-				feature_knn = g_knn.selectAll("circle")
+				g_knn.selectAll("circle")
 					.data(dataK20)
 					.transition()
 					.duration(300)
