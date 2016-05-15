@@ -2,8 +2,8 @@
 
 /* Leaflet map container size */
 div#map2 {
-	width: 860px;
-	height: 600px;
+	width: 1024px;
+	height: 768px;
 }
 /* d3 SVG positioning */
 div#map2 svg {

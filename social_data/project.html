@@ -36,6 +36,7 @@
 	<!-- load JS files -->
 	<!-- load jquery <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script> -->
 	<script src="js/jquery.min.js" type="text/javascript"></script>
+	<script src="js/jquery-ui.min.js" type="text/javascript"></script>
 	<!-- tooltip with jquery: http://bl.ocks.org/ilyabo/1373263 -->
 	<script src="js/jquery.tipsy.js" type="text/javascript"></script>
 	<!-- load D3.js for visualization <script src="https://d3js.org/d3.v3.min.js" type="text/javascript"></script> -->
@@ -46,7 +47,8 @@
 	<script src="js/mapbox.js" type="text/javascript"></script> 
 	<!-- load wordcloud -->
 	<script src="js/d3.layout.cloud.js" type="text/javascript"></script>
-	
+	<!-- counting up numbers when scrolling by -->
+	<script src="js/scrollMonitor.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -75,6 +77,7 @@
 		
 		<!-- Visualization 1 - Barchart -->
 		<div id="vis1">
+			Toggle between wounded and killed parties:
 			<button id="buttonWounded" class="button" style="color:#008CBA;">Wounded</button>
 			<button id="buttonKilled" class="button">Killed</button>
 			<script src="js/v1.js" type="text/javascript"></script>
@@ -113,7 +116,6 @@
 		<div id="vis2">
 			<script src="js/v2.js" type="text/javascript"></script>
 		</div>
-
 		
 		<!-- Visualization 3 - LDA Circle Packing -->
 		<p>Another type of word visualization sorted after topics ...</p>
@@ -122,11 +124,15 @@
 		</div>
 
 		<h3>Voters watch out!</h3>
-		<p>Elections are one of the most fundamental principles of any democracy. The people in Afghanistan who want to make a difference in their war troubled country try to go vote for a change. In the following visualization security incidents during the <a href="https://en.wikipedia.org/wiki/Afghan_presidential_election,_2009">election in August 2009</a> were taken. The spots of these incidents are have an overlay of a KNN grid that shows most likely war incidents that happen in this area. </p>
+		<p>Elections are one of the most fundamental principles of any democracy. The people in Afghanistan who want to make a difference in their war troubled country try to go vote for a change. In the following visualization security incidents during the <a href="https://en.wikipedia.org/wiki/Afghan_presidential_election,_2009">election in August 2009</a> were taken. The spots of these incidents have a <i>k</i>-NN grid as an overlay that shows most likely war incidents that happen in this area. <a href="https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm">The K-nearest neighbors algorithm</a> was used to create the visualization, for more information consider taking a look into the <a href="http://nbviewer.jupyter.org/url/kkaiser.github.io/social_data/nb/project_assignmentB.ipynb"">explainer notebook</a>.</p>
 		<!-- Visualization 4 - Map -->
-		<p><button id="buttonK5" class="button" style="color:#DB7093;">K 5</button>
-			<button id="buttonK10" class="button">K 10</button>
-			<button id="buttonK20" class="button">K 20</button></p>
+		<p>Hover over red dots for district information. Click the dot to set a marker to keep track of a specific district.</p>
+		<div style="margin-bottom: 25px; margin-top: 25px">
+			Change the <i>k</i>-NN parameter:
+			<button id="buttonK5" class="button" style="color:#DB7093;">k = 5</button>
+			<button id="buttonK10" class="button">k = 10</button>
+			<button id="buttonK20" class="button">k = 20</button>
+		</div>
 		<div id="map2">
 			<script src="js/v4_map.js" type="text/javascript"></script>
 		</div>
@@ -144,8 +150,51 @@
 		<div id="map3">
 			<script src="js/v5_map.js" type="text/javascript"></script>
 		</div>
+		<div style="text-align: center; font-size: 2em;">Random forest score:<span id="rf_score">72</span>%</div>
+		<div style="text-align: center; font-size: 2em;" >Decision tree score: <span id="tr_score" >67</span>%</div>
+		<div style="text-align: center; font-size: 2em;">K-Nearest Neighbor score: <span id="nc_score">58</span>%</div>
+		<div style="text-align: center; font-size: 2em;" >Gaussian NB score: <span id="clf_score" >42</span>%</div>
+		
+		<script>
+		"use strict";
+		class AnimateNumber {
+			constructor(elementId, start, stop) {
+			if (stop == undefined) {
+				this.stop = {val:start};
+				this.start = {val:0};
+			} else {
+				this.start = {val:start};
+				this.stop = {val:stop};
+	
+			}
+			this.target = $(elementId);
+	
+			this.renderAnimation = this.renderAnimation.bind(this);
+	
+			const monitor = scrollMonitor.create(document.querySelector(elementId));
+			monitor.enterViewport(this.renderAnimation);
+	
+			}
+			renderAnimation() {
+			$(this.start).animate(this.stop, {
+				duration: 5000,
+				easing: 'easeInOutQuart',
+				step: (e) => {
+					this.target.text(Math.round(e));
+				}
+			});
+	
+			}
+		}
+		document.addEventListener('DOMContentLoaded', new AnimateNumber('#rf_score', 72));
+		document.addEventListener('DOMContentLoaded', new AnimateNumber('#tr_score', 67));
+		document.addEventListener('DOMContentLoaded', new AnimateNumber('#nc_score', 58));
+		document.addEventListener('DOMContentLoaded', new AnimateNumber('#clf_score', 42));
+		</script>
+
 		<!-- Visualization 5 - Barchart -->
 		<div style="margin-bottom: 25px; margin-top: 25px">
+			Select an classification algorithm:
 			<select id="opts_v5">
 				<option value="clf" selected="selected">Gaussian NB</option>
 				<option value="tr">Decision Tree</option>
@@ -157,7 +206,6 @@
 			<script src="js/v5.js" type="text/javascript"></script>
 		</div>
 
-		
 		<h3>Closing technical words</h3>
 		<p>Everything was kept in one HTML document to keep the overview. JS and CSS files are all in one separate file for each visualization. Everything is tested with Chrome 50 it takes a bit to load the page initially but should run smooth after, Firefox 46.0 is working too but has a little bit slower JS engine. Other browsers are untested, our group would appreciate if you keep that in mind while grading.</p>
 

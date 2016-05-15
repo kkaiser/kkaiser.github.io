@@ -237,7 +237,7 @@ info.update = function (props) {
 	this._div.innerHTML = '<h4><b>Province Information</b></h4>' +  (props ?
 		'<b>' + props.province + '</b><br /> area: ' + props.area_sqkm + ' km<sup>2</sup><br /> ' +
 		'reported incidents: <b>' + props.total + '</b>'
-		: 'Hover over a province or click to zoom');
+		: 'Hover over a province or click to zoom.<br />');
 };
 
 info.addTo(map2);
