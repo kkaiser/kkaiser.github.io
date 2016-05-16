@@ -8,8 +8,8 @@ var margin_map3 = {
 		, bottom: 30
 		, left: 60
 	}
-	, width_map3 = 1024 - margin.left - margin.right
-	, height_map3 = 768 - margin.top - margin.bottom;
+	, width_map3 = 800 - margin.left - margin.right
+	, height_map3 = 600 - margin.top - margin.bottom;
 var lattop_map3 = 35.1;
 var lonleft_map3 = 68.4;
 var lonright_map3 = 140;

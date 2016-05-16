@@ -70,10 +70,42 @@
 		There should be download options for data sets (so the user can play around).
 		</b></p>
 		
-		<h3>Casualties of the War</h3>		
+		<h3>Casualties of the War</h3>
 		<p>The most tragic thing about a war? People get killed!</p>
-		
+
 		in 2007 US-army strategies ...
+		<div style="text-align: center; font-size: 2em;">Total people wounded: <span id="wounded_total">26667</span></div>
+		<div style="text-align: center; font-size: 2em;">Total people killed: <span id="killed_total">24155</span></div>
+
+		<script>
+		"use strict";
+		class AnimateNumber {
+			constructor(elementId, start, stop) {
+				if (stop == undefined) {
+					this.stop = {val:start};
+					this.start = {val:0};
+				} else {
+					this.start = {val:start};
+					this.stop = {val:stop};
+				}
+				this.target = $(elementId);		
+				this.renderAnimation = this.renderAnimation.bind(this);		
+				const monitor = scrollMonitor.create(document.querySelector(elementId));
+				monitor.enterViewport(this.renderAnimation);
+			}
+			renderAnimation() {
+				$(this.start).animate(this.stop, {
+					duration: 8000,
+					easing: 'easeInOutQuart',
+					step: (e) => {
+						this.target.text(Math.round(e));
+					}
+				});
+			}
+		}
+		document.addEventListener('DOMContentLoaded', new AnimateNumber('#wounded_total', 26667));
+		document.addEventListener('DOMContentLoaded', new AnimateNumber('#killed_total', 24155));
+		</script>
 		
 		<!-- Visualization 1 - Barchart -->
 		<div id="vis1">
@@ -129,9 +161,11 @@
 		<p>Hover over red dots for district information. Click the dot to set a marker to keep track of a specific district.</p>
 		<div style="margin-bottom: 25px; margin-top: 25px">
 			Change the <i>k</i>-NN parameter:
-			<button id="buttonK5" class="button" style="color:#DB7093;">k = 5</button>
-			<button id="buttonK10" class="button">k = 10</button>
-			<button id="buttonK20" class="button">k = 20</button>
+			<select id="opts_map2">
+				<option value="k5" selected="selected">k=5</option>
+				<option value="k10">k=10</option>
+				<option value="k20">k=20</option>
+			</select>
 		</div>
 		<div id="map2">
 			<script src="js/v4_map.js" type="text/javascript"></script>
@@ -150,47 +184,10 @@
 		<div id="map3">
 			<script src="js/v5_map.js" type="text/javascript"></script>
 		</div>
-		<div style="text-align: center; font-size: 2em;">Random forest score:<span id="rf_score">72</span>%</div>
-		<div style="text-align: center; font-size: 2em;" >Decision tree score: <span id="tr_score" >67</span>%</div>
-		<div style="text-align: center; font-size: 2em;">K-Nearest Neighbor score: <span id="nc_score">58</span>%</div>
-		<div style="text-align: center; font-size: 2em;" >Gaussian NB score: <span id="clf_score" >42</span>%</div>
-		
-		<script>
-		"use strict";
-		class AnimateNumber {
-			constructor(elementId, start, stop) {
-			if (stop == undefined) {
-				this.stop = {val:start};
-				this.start = {val:0};
-			} else {
-				this.start = {val:start};
-				this.stop = {val:stop};
-	
-			}
-			this.target = $(elementId);
-	
-			this.renderAnimation = this.renderAnimation.bind(this);
-	
-			const monitor = scrollMonitor.create(document.querySelector(elementId));
-			monitor.enterViewport(this.renderAnimation);
-	
-			}
-			renderAnimation() {
-			$(this.start).animate(this.stop, {
-				duration: 5000,
-				easing: 'easeInOutQuart',
-				step: (e) => {
-					this.target.text(Math.round(e));
-				}
-			});
-	
-			}
-		}
-		document.addEventListener('DOMContentLoaded', new AnimateNumber('#rf_score', 72));
-		document.addEventListener('DOMContentLoaded', new AnimateNumber('#tr_score', 67));
-		document.addEventListener('DOMContentLoaded', new AnimateNumber('#nc_score', 58));
-		document.addEventListener('DOMContentLoaded', new AnimateNumber('#clf_score', 42));
-		</script>
+		<div style="font-size: 2em;">Random forest score: <span id="rf_score">72</span>%</div>
+		<div style="font-size: 2em;">Decision tree score: <span id="tr_score" >67</span>%</div>
+		<div style="font-size: 2em;">K-Nearest Neighbor score: <span id="nc_score">58</span>%</div>
+		<div style="font-size: 2em;">Gaussian NB score: <span id="clf_score">42</span>%</div>
 
 		<!-- Visualization 5 - Barchart -->
 		<div style="margin-bottom: 25px; margin-top: 25px">
@@ -214,5 +211,4 @@
 		</footer>
 	</section>
 </body>
-
 </html>

@@ -175,7 +175,7 @@ d3.json("data/json/afg.geojson", function(error, collection) {
 		.attr("width", 100)
 		.attr("height", 100)
 		.style("background-color", "rgba(255, 255, 255, 0.8)")
-		.style("top", "650px")
+		.style("top", "668px")
 		.selectAll("g")
 		.data(legend_data)
 		.enter().append("g")

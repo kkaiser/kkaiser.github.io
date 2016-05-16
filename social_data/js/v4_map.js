@@ -455,62 +455,32 @@ d3.csv("data/csv/v4/election.csv", function(error, data) {
 			)
 		}
 		
-		// on click, update with new data
-		d3.selectAll("#buttonK5, #buttonK10, #buttonK20").on("click", function() {
-			// see what button was clicked
-			var ID = d3.select(this).attr("id");
-	
-			// decide which dataset to load and update
-			if (ID == "buttonK5") {
-				this.style.color = "#DB7093";
-				var x10 = document.getElementById("buttonK10");
-				var x20 = document.getElementById("buttonK20");
-				x10.style.color = null;
-				x20.style.color = null;
-				g_knn.selectAll("circle")
-					.data(dataK5)
-					.transition()
-					.duration(300)
-					.ease("linear")
-					.style("opacity", .3) 
-					.style("fill", function(d) {
-						return getColorKnn(d.Prediction_k5);
-					})
-					.attr("r", 1.5);
-			} else if (ID == "buttonK10") {
-				this.style.color = "#DB7093";
-				var x5 = document.getElementById("buttonK5");
-				var x20 = document.getElementById("buttonK20");
-				x5.style.color = null;
-				x20.style.color = null;
-				g_knn.selectAll("circle")
-					.data(dataK10)
-					.transition()
-					.duration(300)
-					.ease("linear")
-					.style("opacity", .3) 
-					.style("fill", function(d) {
-						return getColorKnn(d.Prediction_k10);
-					})
-					.attr("r", 1.5);
-			} else {
-				this.style.color = "#DB7093";
-				var x5 = document.getElementById("buttonK5");
-				var x10 = document.getElementById("buttonK10");
-				x5.style.color = null;
-				x10.style.color = null;
-				g_knn.selectAll("circle")
-					.data(dataK20)
-					.transition()
-					.duration(300)
-					.ease("linear")
-					.style("opacity", .3) 
-					.style("fill", function(d) {
-						return getColorKnn(d.Prediction_k20);
-					})
+		// on select, update with new data
+		d3.selectAll("#opts_map2")
+			.on('change', function() {
+				// decide which dataset to load and update
+				var ID = d3.select(this).property('value');
+				if (ID == "k5") {
+					update_d_knn(dataK5, 'Prediction_k5');
+				} else if (ID == "k10") {
+					update_d_knn(dataK10, 'Prediction_k10')
+				} else if (ID == "k20") {
+					update_d_knn(dataK20, 'Prediction_k20')
+				}
+			})
+		
+		function update_d_knn(d_knn, color_string) {
+			g_knn.selectAll("circle")
+				.data(d_knn)
+				.transition()
+				.duration(300)
+				.ease("linear")
+				.style("opacity", .3) 
+				.style("fill", function(d) {
+					return getColorKnn(d[color_string]);
+				})
 				.attr("r", 1.5);
-			}
-		});
+		}
 	})
 });
 
