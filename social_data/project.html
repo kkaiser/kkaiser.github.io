@@ -63,7 +63,7 @@
 	<section class="main-content">
 	
 		<h3>Introduction</h3>
-		<p>The analyzed dataset contains every recorded incident between 2004 and 2009 during the war in Afghanistan. The secret file has been published in 2010 by the platform <a href="https://wikileaks.org/wiki/Afghan_War_Diary,_2004-2010">WikiLeaks</a>. Please take a look at the following visualizations to get a sense of the tragedies that occurred during this war. In the later sections some scientific methods are used to conclude how ISAF forces and civilians can benefit from the leaked data. A more in <a href="http://nbviewer.jupyter.org/url/kkaiser.github.io/social_data/nb/project_assignmentB.ipynb">depth analysis</a> can be found in a iPython explainer notebook.</p>
+		<p>The analyzed dataset contains every recorded incident between 2004 and 2009 during the war in Afghanistan. The secret file has been published in 2010 by the platform <a href="https://wikileaks.org/wiki/Afghan_War_Diary,_2004-2010">WikiLeaks</a>. Please take a look at the following visualizations to get a sense of the tragedies that occurred during this war. In the later sections some scientific methods are used to conclude how ISAF forces and civilians can benefit from the leaked data. A more <a href="http://nbviewer.jupyter.org/url/kkaiser.github.io/social_data/nb/project_assignmentB.ipynb">in depth analysis</a> can be found in a iPython explainer notebook.</p>
 
 		<p><b>
 		The page should say clearly what the dataset is and give the reader some idea of its most important properties.
@@ -184,11 +184,14 @@
 		<div id="map3">
 			<script src="js/v5_map.js" type="text/javascript"></script>
 		</div>
-		<div style="font-size: 2em;">Random forest score: <span id="rf_score">72</span>%</div>
-		<div style="font-size: 2em;">Decision tree score: <span id="tr_score" >67</span>%</div>
-		<div style="font-size: 2em;">K-Nearest Neighbor score: <span id="nc_score">58</span>%</div>
-		<div style="font-size: 2em;">Gaussian NB score: <span id="clf_score">42</span>%</div>
-
+		Highest obtained scores even though just one feature:
+		<div style="font-size: 2em;">Random forest score: <span id="rf_score">77.15</span>%</div>
+		<div style="font-size: 2em;">Decision tree score: <span id="tr_score" >69.64</span>%</div>
+		<div style="font-size: 2em;">K-Nearest Neighbor score: <span id="nc_score">61.03</span>%</div>
+		<div style="font-size: 2em;">Gaussian NB score: <span id="clf_score">42.17</span>%</div>
+		Time ranges slow rf in training phase, KNN slowest prediction, gaussian fastest prediction
+		dt fast prediction with rf, 
+		depends where priorities are but most accurate score probably most critical which would also explain ... https://www.sciencenews.org/article/decision-tree-soldiers-could-reduce-civilian-deaths
 		<!-- Visualization 5 - Barchart -->
 		<div style="margin-bottom: 25px; margin-top: 25px">
 			Select an classification algorithm:
