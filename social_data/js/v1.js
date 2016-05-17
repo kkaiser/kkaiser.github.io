@@ -120,7 +120,7 @@ d3.csv("data/csv/v1/wounded.csv", function(error, data) {
 		.enter().append("g")
 		.attr("class", "legend")
 		.attr("transform", function(d, i) {
-			return "translate(50," + i * 20 + ")";
+			return "translate(80," + i * 20 + ")";
 		});
 	legend.append("rect")
 		.attr("x", width - 760)

@@ -27,7 +27,7 @@
 	/* Visualization 5 - Barchart */
 	@import url(css/v5.css);
 	
-	/* Visualizations - Map */
+	/* Visualized Maps */
 	@import url(css/v1_map.css);
 	@import url(css/v4_map.css);
 	@import url(css/v5_map.css);
@@ -63,17 +63,26 @@
 	<section class="main-content">
 	
 		<h3>Introduction</h3>
-		<p>The analyzed dataset contains every recorded incident between 2004 and 2009 during the war in Afghanistan. The secret file has been published in 2010 by the platform <a href="https://wikileaks.org/wiki/Afghan_War_Diary,_2004-2010">WikiLeaks</a>. Please take a look at the following visualizations to get a sense of the tragedies that occurred during this war. In the later sections some scientific methods are used to conclude how ISAF forces and civilians can benefit from the leaked data. A more <a href="http://nbviewer.jupyter.org/url/kkaiser.github.io/social_data/nb/project_assignmentB.ipynb">in depth analysis</a> can be found in a iPython explainer notebook.</p>
+		<p>
+			In 2010 <a href="https://wikileaks.org/wiki/Afghan_War_Diary,_2004-2010">WikiLeaks</a> released a file that gave access to previously classified military documents pertaining to the Afghanistan war. Especially news organizations where interested but faced a big challenge: How, if possible, could they visually depict some of the information for their readers? <a href="#sources">[1]</a>
+		</p>
+		<p>
+			The <a href="http://www.dtu.dk/">DTU</a> course <a href="http://www.kurser.dtu.dk/02806.aspx?menulanguage=en-gb">social data analysis and visualization</a> gave us the right background knowledge to find out if we also can create interesting visualizations with this dataset.
+		</p>
+		<p>
+			The analyzed dataset contains every recorded incident between 2004 and 2009 during the war in Afghanistan. The following visualizations were created to get some more sense out of the raw data and the tragedies that occurred during this war that lasted until late 2014. A more in depth analysis regarding the data can be found in a <a href="http://nbviewer.jupyter.org/url/kkaiser.github.io/social_data/nb/project_assignmentB.ipynb">iPython explainer notebook</a>.
+		</p>
 
-		<p><b>
-		The page should say clearly what the dataset is and give the reader some idea of its most important properties.
-		There should be download options for data sets (so the user can play around).
-		</b></p>
+		<a name="data"><h3>Dataset - important properties</h3></a>		
+		This so called war diary is contained in a <b>74</b> Mbyte <a href="https://en.wikipedia.org/wiki/Comma-separated_values">CSV</a> file. It consists of <i>76911 rows</i> and <i>34 columns</i>. The most interesting columns contain dates, locations, reports about incidents, parties involved (Afghan forces, ISAF/NATO forces, Taliban and Civilians) and counts of the killed and wounded. A large number of <i>153 unique categories</i> detail the type of incidents. Especially direct and indirect fire along with different <a href="https://en.wikipedia.org/wiki/Improvised_explosive_device">IED</a> (Improvised explosive device) incidents are the most frequent. 
+		
+		 <img src="data/pics/category_occ.png" alt="Category occurences">
+		
+		Additionally some <a href="http://afghanistanelectiondata.org/open/data">open data</a> from the elections in Afghanistan 2009 and 2010 helped us to get some numbers of violent incidents for specific voting districts to see where the most dangerous areas for civilians during the elections are. To show some contours on the maps and have some region information a <a href="http://geojson.org/">GeoJSON</a> file that was <a href="https://ckhickey.cartodb.com/tables/afghanistan_provinces_geometry/public">openly published</a> has been used.
 		
 		<h3>Casualties of the War</h3>
 		<p>The most tragic thing about a war? People get killed!</p>
-
-		in 2007 US-army strategies ...
+		
 		<div style="text-align: center; font-size: 2em;">Total people wounded: <span id="wounded_total">26667</span></div>
 		<div style="text-align: center; font-size: 2em;">Total people killed: <span id="killed_total">24155</span></div>
 
@@ -107,6 +116,10 @@
 		document.addEventListener('DOMContentLoaded', new AnimateNumber('#killed_total', 24155));
 		</script>
 		
+		<p>
+			Nevertheless by taking a closer look into the death toll we often realize first that every life lost is added on top of the barchart you see.
+		</p>
+		
 		<!-- Visualization 1 - Barchart -->
 		<div id="vis1">
 			Toggle between wounded and killed parties:
@@ -114,21 +127,21 @@
 			<button id="buttonKilled" class="button">Killed</button>
 			<script src="js/v1.js" type="text/javascript"></script>
 		</div>
-
 		<p>
-			One of the worst side effects of war are innocent casualties, civilians that die because they where at the wrong place at the wrong time. 
-			The map you see below covers killed civilians over the course of the war.		
+			The war was a result of the terror attacks in 2001 on the World Trade Centers in New York City lead by Taliban leader Osama bin Laden. After the initial attack the NATO forces with up to 46 countries were gathered as the International Security Assistance Force (ISAF) under U.S. command. This coalition started its major offense in 2006 but the Taliban never got completely defeated <a href="#sources">[2]</a>. Thus the numbers of killed and wounded in the chart rocketed and rarely declined up to 2009. One of the major problems was the commitment the priority was Iraq first, Afghanistan second. Especially in 2008 the troops where massively increased <a href="#sources">[3]</a>. The split of the sectors can be viewed in the upcoming map visualization along with the distribution of civilian casualties especially in southern Afghanistan.
+		</p>		
+		<p>
+			One of the worst side effects of war are innocent casualties, civilians that die because they where at the wrong place at the wrong time, it can never be avoided. Although the toll of dead Taliban is much higher one can not disregard the increasing number of dead civilians especially in 2009 when there were elections in Afghanistan.
+			The map you see below covers killed civilians over the course of the war. Every circle actually indicates how many lives were taken. The map is zoomable and interactive, try to hover over the circles and see more information about each incident. With the menu in the top right corner layers can be disabled and tiles switched.	
 		</p>
 		
 		<!-- Visualization 1 - Map of killed civilians -->
-		<p>Every circle is actually many lives taken.</p>
-		<p>In the top right you can alter the map tiles and disable the GeoJSON overlay of the regions.</p>
 		<div id="map1">
 			<script src="js/v1_map.js" type="text/javascript"></script>
 		</div>
 
 		<h3>War Categories described in Words</h3>
-		<p>Wounded legs, shots fired, fighting soldier, the firebase "Lilley" in <a href="https://en.wikipedia.org/wiki/Shkin,_Paktika">Shkin</a>, according to  U.S. Army Colonel Rodney Davisthe the evilest place in Afghanistan. The category green on green specifies the <a href="http://www.theguardian.com/world/2010/jul/25/green-on-green-afghan-war-logs">fights between Afghan police and troops</a>. According to the Guardian and the summaries bad blood, corruption, drugs and poor discipline have led to these cases.</p>
+		<p>Wounded legs, shots fired, fighting soldier, the firebase "Lilley" in Shkin, according to  U.S. Army Colonel Rodney Davis the evilest place in Afghanistan <a href="#sources">[4]</a>. The category green on green specifies the fights between Afghan police and troops. According to the Guardian and the summaries in the data bad blood, corruption, drugs and poor discipline have led to these cases. <a href="#sources">[5]</a></p>
 		<p>A lot of powerful words that give an impression of the ugly faces of war are displayed in bellow wordcloud of some particular categories that can be selected over the drop down menu.</p>
 
 		<!-- Visualization 2 - Wordcloud -->
@@ -150,13 +163,14 @@
 		</div>
 		
 		<!-- Visualization 3 - LDA Circle Packing -->
-		<p>Another type of word visualization sorted after topics ...</p>
+		Latent Dirichlet Allocation (LDA) is a topic model which generates topics based on word frequency from a set of data. At a glance one can easily see there are 5 topics including "afghan", "national" and "police". This is not so much of a coincidence because the selected topics surround demonstrations, murder, arrest, carjacking etc. similar to the topics used in the wordcloud. The words that mainly constitute a topic are always grouped together, one example: refugee, <a href="http://www.unhcr.org/cgi-bin/texis/vtx/home
+">UNHCR</a> (The United Nations Refugee Agency), Pakistan, route, truck are all things that can be easily connected to see that Afghan war refugees often fled in trucks on route to Pakistan and got help by the U.N.
 		<div id="vis3">
 			<script src="js/v3.js" type="text/javascript"></script>
 		</div>
 
 		<h3>Voters watch out!</h3>
-		<p>Elections are one of the most fundamental principles of any democracy. The people in Afghanistan who want to make a difference in their war troubled country try to go vote for a change. In the following visualization security incidents during the <a href="https://en.wikipedia.org/wiki/Afghan_presidential_election,_2009">election in August 2009</a> were taken. The spots of these incidents have a <i>k</i>-NN grid as an overlay that shows most likely war incidents that happen in this area. <a href="https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm">The K-nearest neighbors algorithm</a> was used to create the visualization, for more information consider taking a look into the <a href="http://nbviewer.jupyter.org/url/kkaiser.github.io/social_data/nb/project_assignmentB.ipynb"">explainer notebook</a>.</p>
+		<p>Elections are one of the most fundamental principles of any democracy. The people in Afghanistan who want to make a difference in their war troubled country try to go vote for a change. In the following visualization security incidents during the <a href="https://en.wikipedia.org/wiki/Afghan_presidential_election,_2009">presidential election in August 2009</a> were taken. 2009 was the most lethal year since the fall of the Taliban government in late 2001 <a href="#sources">[6]</a>. The death rate was surpassed again in 2010 when there was the <a href="https://en.wikipedia.org/wiki/Afghan_parliamentary_election,_2010">Afghan parliamentary election</a> raising questions of why it was not possible to make public places more secure. Thus we took a closer look using the two <a href="#data">datasets</a> introduced before. The map contains spots of all election incidents and has additionally a <i>k</i>-NN grid as overlay that shows most likely war incidents that happen in this area. <a href="https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm">The K-nearest neighbors algorithm</a> was used to create the visualization.
 		<!-- Visualization 4 - Map -->
 		<p>Hover over red dots for district information. Click the dot to set a marker to keep track of a specific district.</p>
 		<div style="margin-bottom: 25px; margin-top: 25px">
@@ -171,32 +185,26 @@
 			<script src="js/v4_map.js" type="text/javascript"></script>
 		</div>
 		
-		Attacks ahead of the vote, Election day violence
-		two days before the election that insurgent attacks had averaged 32 per day in the last 10 days, but had spiked up to 48 attacks per day within the last four days
-		Afghan parliamentary election, 2010
-		https://en.wikipedia.org/wiki/Afghan_parliamentary_election,_2010#Controversy
-		
 		<h3>Making Predictions</h3>
-		Evaluate the best classifier to chose to predict the right category according to the described event in the summary.
-		Useful for the US-Army to avoid the category "Other" or double meanings like "blue-white" and "blue-on-white" for instance. Usually every report from the military goes into the headquarter for a post analysis. Especially the "significant" activities are analyzed and evaluated by a special group in the command according to the <a href="https://wikileaks.org/afg/">WikiLeaks structure of the reports</a>. Some machine learning algorithms could help them to optimize their work. We decided to do the analysis for all incidents in Kabul (RC-Capital) from 2004 to 2009. In this highly populated region the army can benefit the best.
+		Although created under the circumstances during the war there is a lot of useless data. Our group evaluated the best classifier you can chose to predict the right category according to the described event in the summary. Useful for the US-Army to avoid the category "Other" or double meanings like "blue-white" and "blue-on-white" for instance. Usually every report from the military goes into the headquarter for a post analysis. Especially the "significant" activities are analyzed and evaluated by a special group in the command according to the <a href="https://wikileaks.org/afg/">structure of the reports</a> by WikiLeaks. Some machine learning algorithms could help them to optimize their work. The analysis was done for all incidents in Kabul (RC-Capital) from 2004 to 2009. In this highly populated region the army can achieve the highest benefit. Take a look at the map to see clustered areas of enemy (red), friendly (green) and neutral (blue) activities. The map will automatically toggle between clustered points for the respective category.
 		
 		<!-- Visualization 5 - Map -->
 		<div id="map3">
 			<script src="js/v5_map.js" type="text/javascript"></script>
 		</div>
-		Highest obtained scores even though just one feature:
+
+		The different machine learning methods obtained the following maximum scores:
 		<div style="font-size: 2em;">Random forest score: <span id="rf_score">77.15</span>%</div>
 		<div style="font-size: 2em;">Decision tree score: <span id="tr_score" >69.64</span>%</div>
 		<div style="font-size: 2em;">K-Nearest Neighbor score: <span id="nc_score">61.03</span>%</div>
-		<div style="font-size: 2em;">Gaussian NB score: <span id="clf_score">42.17</span>%</div>
-		Time ranges slow rf in training phase, KNN slowest prediction, gaussian fastest prediction
-		dt fast prediction with rf, 
-		depends where priorities are but most accurate score probably most critical which would also explain ... https://www.sciencenews.org/article/decision-tree-soldiers-could-reduce-civilian-deaths
+		<div style="font-size: 2em;">Gaussian Naive Bayes score: <span id="clf_score">42.17</span>%</div>
+		
+		The barchart reveals in what categories the specific algorithm was more or less accurate. Random forest classification can be regarded as the best algorithm for the described problem.	
 		<!-- Visualization 5 - Barchart -->
 		<div style="margin-bottom: 25px; margin-top: 25px">
 			Select an classification algorithm:
 			<select id="opts_v5">
-				<option value="clf" selected="selected">Gaussian NB</option>
+				<option value="clf" selected="selected">Gaussian Naive Bayes</option>
 				<option value="tr">Decision Tree</option>
 				<option value="rf">Random Forest</option>
 				<option value="nc">K-Nearest Neighbor</option>
@@ -206,11 +214,44 @@
 			<script src="js/v5.js" type="text/javascript"></script>
 		</div>
 
+		<a name="sources"><h3>Sources</h3></a>
+		<ul>
+			<li> [1] - Lauren Kirchner, <a href="http://www.cjr.org/the_news_frontier/visualizing_the_iraq_war_logs.php">Visualizing the Iraq War Logs</a>, Columbia Journalism Review. [last online accessed: 17.05.2016]
+			</li>
+			<li> [2] - Wikimedia Foundation, Inc., <a href="https://en.wikipedia.org/wiki/War_in_Afghanistan_%282001%E2%80%9314%29#2006:_Southern_Afghanistan"></a>, Wikipedia. [last online accessed: 17.05.2016]
+			</li>
+			<li> [3] - Wikimedia Foundation, Inc., <a href="https://en.wikipedia.org/wiki/War_in_Afghanistan_%282001%E2%80%9314%29#Reassessment_and_renewed_commitment_from_2008">Reassessment and renewed commitment from 2008</a>, Wikipedia. [last online accessed: 17.05.2016]
+			</li>
+			<li> [4] - David Leigh (2010), <a href="http://www.theguardian.com/world/2010/jul/25/green-on-green-afghan-war-logs">Afghanistan war logs: 'Green on green' fights between Afghan police and troops</a>, The Guardian. [last online accessed: 17.05.2016]
+			</li>
+			<li> [5] - Wikimedia Foundation, Inc., <a href="https://en.wikipedia.org/wiki/Shkin,_Paktika">Shkin, Paktika</a>, Wikipedia. [last online accessed: 17.05.2016]
+			</li>
+			<li> [6] - Wikimedia Foundation, Inc., <a href="https://en.wikipedia.org/wiki/Civilian_casualties_in_the_war_in_Afghanistan_%282001%E2%80%93present%29#Civilian_and_overall_casualties_.282009.29">Civilian casualties in the war in Afghanistan 2009</a>, Wikipedia. [last online accessed: 17.05.2016]
+			</li>
+		</ul>
+		<h3>Links</h3>
+		<ul>	
+			<li> <a href="http://nbviewer.jupyter.org/url/kkaiser.github.io/social_data/nb/project_assignmentB.ipynb">iPython explainer notebook</a>.
+			</li>
+			<li> <a href="https://wikileaks.org/wiki/Afghan_War_Diary,_2004-2010">WikiLeaks</a>
+			</li>
+		</ul>
+		
+		<h3>Datasets</h3>		
+		<ul>
+			<li> <a href="data/csv/afg.csv">Afghanistan war diary, CSV file</a>
+			</li>
+			<li> <a href="data/json/afg.geojson">Afghanistan map, GeoJSON file</a>
+			</li>
+			<li> <a href="data/csv/elections_security_incidents.csv">Afghanistan election incidents, CSV file</a>
+			</li>
+		</ul>
+
 		<h3>Closing technical words</h3>
 		<p>Everything was kept in one HTML document to keep the overview. JS and CSS files are all in one separate file for each visualization. Everything is tested with Chrome 50 it takes a bit to load the page initially but should run smooth after, Firefox 46.0 is working too but has a little bit slower JS engine. Other browsers are untested, our group would appreciate if you keep that in mind while grading.</p>
 
 		<footer class="site-footer">
-			<span class="site-footer-credits">For the DTU course <a href="http://www.kurser.dtu.dk/02806.aspx?menulanguage=en-gb"> 02806</a> social data analysis and visualization <a href="https://github.com/suneman/socialdataanalysis2016">taught on GitHub</a>.</span>
+			<span class="site-footer-credits">For the <a href="http://www.dtu.dk/">DTU</a> course <a href="http://www.kurser.dtu.dk/02806.aspx?menulanguage=en-gb">02806</a> social data analysis and visualization <a href="https://github.com/suneman/socialdataanalysis2016">taught on GitHub</a>.</span>
 		</footer>
 	</section>
 </body>

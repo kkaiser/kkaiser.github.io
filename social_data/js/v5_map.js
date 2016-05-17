@@ -1,7 +1,9 @@
 "use strict";
+
 // create bounding box
 var projection_map3 = d3.geo.mercator();
-//global variables
+
+// global variables
 var margin_map3 = {
 		top: 20
 		, right: 20
@@ -222,15 +224,25 @@ d3.json("data/json/afg.geojson", function(json) {
 		}, 8000);
 
 		function update_map(dat, centr) {
+			
+			// make glowing effect		
+			var animate = function() {
+				d3.select(this).transition().duration(1500)
+				.attr("r", 7).each("end", function () {
+				d3.select(this).transition().duration(1500)
+					.attr("r", 3).each("end", animate)});
+			}
+			
 			svg_map3.select("#nodes_m3").selectAll("circle")
 				.data(dat)
+				.transition().duration(1000)
 				.attr("cx", function(d) {
 					return projection_map3([d.lon, d.lat])[0];
 				})
 				.attr("cy", function(d) {
 					return projection_map3([d.lon, d.lat])[1];
 				})
-				.attr("r", 3)
+				.attr("r", 3).each("end", animate)
 				.style("fill", function(d) {
 					return get_node_colors(d);
 				})
