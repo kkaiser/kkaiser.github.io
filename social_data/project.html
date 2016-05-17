@@ -15,7 +15,7 @@
 	/* leaflet is not needed with mapbox @import url(css/leaflet.css);*/
 	@import url(https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css);
 
-	/* Visualization 1 - Barchart */
+	/* Visualization 1 - bar chart */
 	@import url(css/v1.css);
 	
 	/* Visualization 2 - Wordcloud */
@@ -24,7 +24,7 @@
 	/* Visualization 3 - LDA Circle Packing */
 	@import url(css/v3.css);
 	
-	/* Visualization 5 - Barchart */
+	/* Visualization 5 - bar chart */
 	@import url(css/v5.css);
 	
 	/* Visualized Maps */
@@ -117,10 +117,10 @@
 		</script>
 		
 		<p>
-			Nevertheless by taking a closer look into the death toll we often realize first that every life lost is added on top of the barchart you see.
+			Nevertheless by taking a closer look into the death toll we often realize first that every life lost is added on top of the bar chart you see.
 		</p>
 		
-		<!-- Visualization 1 - Barchart -->
+		<!-- Visualization 1 - bar chart -->
 		<div id="vis1">
 			Toggle between wounded and killed parties:
 			<button id="buttonWounded" class="button" style="color:#008CBA;">Wounded</button>
@@ -170,7 +170,7 @@
 		</div>
 
 		<h3>Voters watch out!</h3>
-		<p>Elections are one of the most fundamental principles of any democracy. The people in Afghanistan who want to make a difference in their war troubled country try to go vote for a change. In the following visualization security incidents during the <a href="https://en.wikipedia.org/wiki/Afghan_presidential_election,_2009">presidential election in August 2009</a> were taken. 2009 was the most lethal year since the fall of the Taliban government in late 2001 <a href="#sources">[6]</a>. The death rate was surpassed again in 2010 when there was the <a href="https://en.wikipedia.org/wiki/Afghan_parliamentary_election,_2010">Afghan parliamentary election</a> raising questions of why it was not possible to make public places more secure. Thus we took a closer look using the two <a href="#data">datasets</a> introduced before. The map contains spots of all election incidents and has additionally a <i>k</i>-NN grid as overlay that shows most likely war incidents that happen in this area. <a href="https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm">The K-nearest neighbors algorithm</a> was used to create the visualization.
+		<p>Elections are one of the most fundamental principles of any democracy. The people in Afghanistan who want to make a difference in their war troubled country try to go vote for a change. In the following visualization security incidents during the <a href="https://en.wikipedia.org/wiki/Afghan_presidential_election,_2009">presidential election in August 2009</a> were taken. 2009 was the most lethal year since the fall of the Taliban government in late 2001 <a href="#sources">[6]</a>. The death rate was surpassed again in 2010 when there was the <a href="https://en.wikipedia.org/wiki/Afghan_parliamentary_election,_2010">Afghan parliamentary election</a> raising questions of why it was not possible to make public places more secure. Thus we took a closer look using the two <a href="#data">datasets</a> introduced before. The map contains spots of all election incidents and has additionally a <i>k</i>-NN grid as overlay that shows most likely war incidents that happen in this area. <a href="https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm">The K-nearest neighbors algorithm</a> was used to create the visualization only for data from 2009.
 		<!-- Visualization 4 - Map -->
 		<p>Hover over red dots for district information. Click the dot to set a marker to keep track of a specific district.</p>
 		<div style="margin-bottom: 25px; margin-top: 25px">
@@ -186,7 +186,7 @@
 		</div>
 		
 		<h3>Making Predictions</h3>
-		Although created under the circumstances during the war there is a lot of useless data. Our group evaluated the best classifier you can chose to predict the right category according to the described event in the summary. Useful for the US-Army to avoid the category "Other" or double meanings like "blue-white" and "blue-on-white" for instance. Usually every report from the military goes into the headquarter for a post analysis. Especially the "significant" activities are analyzed and evaluated by a special group in the command according to the <a href="https://wikileaks.org/afg/">structure of the reports</a> by WikiLeaks. Some machine learning algorithms could help them to optimize their work. The analysis was done for all incidents in Kabul (RC-Capital) from 2004 to 2009. In this highly populated region the army can achieve the highest benefit. Take a look at the map to see clustered areas of enemy (red), friendly (green) and neutral (blue) activities. The map will automatically toggle between clustered points for the respective category.
+		Although created under the circumstances during the war there is a lot of useless data. Our group evaluated the best classifier you can chose to predict the right category according to the described event in the summary. Useful for the US-Army to avoid the category "Other" or double meanings like "blue-white" and "blue-on-white" for instance. Usually every report from the military goes into the headquarter for a post analysis. Especially the "significant" activities are analyzed and evaluated by a special group in the command according to the <a href="https://wikileaks.org/afg/">structure of the reports</a> by WikiLeaks. Some machine learning algorithms could help them to optimize their work. The analysis was done for all incidents in Kabul (RC-Capital) from 2004 to 2009. In this highly populated region the army can achieve the highest benefit. Take a look at the map to see clustered areas of enemy (red), friendly (green) and neutral (blue) activities. The map showcases how training data can be used to make useful classifications similar to the one we target with our evaluation in the bar chart. The map will automatically toggle between clustered points for the respective category.
 		
 		<!-- Visualization 5 - Map -->
 		<div id="map3">
@@ -194,15 +194,15 @@
 		</div>
 
 		The different machine learning methods obtained the following maximum scores:
-		<div style="font-size: 2em;">Random forest score: <span id="rf_score">77.15</span>%</div>
-		<div style="font-size: 2em;">Decision tree score: <span id="tr_score" >69.64</span>%</div>
-		<div style="font-size: 2em;">K-Nearest Neighbor score: <span id="nc_score">61.03</span>%</div>
-		<div style="font-size: 2em;">Gaussian Naive Bayes score: <span id="clf_score">42.17</span>%</div>
+		<div style="font-size: 2em;">Random forest score: <span id="rf_score">77.30</span>%</div>
+		<div style="font-size: 2em;">Decision tree score: <span id="tr_score" >72.92</span>%</div>
+		<div style="font-size: 2em;">K-Nearest Neighbor score: <span id="nc_score">62.91</span>%</div>
+		<div style="font-size: 2em;">Gaussian Naive Bayes score: <span id="clf_score">42.25</span>%</div>
 		
-		The barchart reveals in what categories the specific algorithm was more or less accurate. Random forest classification can be regarded as the best algorithm for the described problem.	
-		<!-- Visualization 5 - Barchart -->
+		The bar chart reveals in what categories the specific classifier was more or less accurate. Random forest classification can be regarded as the best method for the described problem.	
+		<!-- Visualization 5 - bar chart -->
 		<div style="margin-bottom: 25px; margin-top: 25px">
-			Select an classification algorithm:
+			Select an classification method:
 			<select id="opts_v5">
 				<option value="clf" selected="selected">Gaussian Naive Bayes</option>
 				<option value="tr">Decision Tree</option>

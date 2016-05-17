@@ -72,6 +72,7 @@ d3.csv("data/csv/v1/wounded.csv", function(error, data) {
 		.attr("dy", ".71em")
 		.style("text-anchor", "end")
 		.text("Number of people");
+
 	var year = svg.selectAll(".year")
 		.data(data)
 		.enter().append("g")
@@ -79,6 +80,7 @@ d3.csv("data/csv/v1/wounded.csv", function(error, data) {
 		.attr("transform", function(d) {
 			return "translate(" + x0(d.Year) + ",0)";
 		});
+
 	year.selectAll(".bar")
 		.data(function(d) {
 			return d.forces;
@@ -99,6 +101,7 @@ d3.csv("data/csv/v1/wounded.csv", function(error, data) {
 		.style("fill", function(d) {
 			return color(d.name);
 		});
+
 	d3.selectAll("rect.bar")
 		.on("mouseover", function(d) {
 			tooltip.transition()
@@ -186,12 +189,14 @@ d3.csv("data/csv/v1/wounded.csv", function(error, data) {
 				.duration(1000)
 				.ease("elastic")
 				.call(yAxis);
+				
 			var year = svg.selectAll(".year")
 				.data(data)
 				.attr("class", "year")
 				.attr("transform", function(d) {
 					return "translate(" + x0(d.Year) + ",0)";
 				});
+				
 			year.selectAll(".bar")
 				.data(function(d) {
 					return d.forces;
@@ -210,6 +215,7 @@ d3.csv("data/csv/v1/wounded.csv", function(error, data) {
 				.attr("height", function(d) {
 					return height - y(d.value);
 				})
+	
 			svg.selectAll("rect.bar")
 				.on("mouseover", function(d) {
 					tooltip.transition()
